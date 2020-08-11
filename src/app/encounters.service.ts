@@ -9,7 +9,11 @@ export class EncountersService {
   public data: AppData = {
     players: [],
     monsters: [],
-    encounters: []
+    encounters: [],
+    combat: {
+      encounterUid: '',
+      groups: []
+    }
   }
 
   constructor(private firebase: FirebaseService) {

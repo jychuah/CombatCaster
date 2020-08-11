@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { OverlayComponent } from './overlay.component';
+import { OverlayPage } from './overlay.page';
 
-describe('OverlayComponent', () => {
-  let component: OverlayComponent;
-  let fixture: ComponentFixture<OverlayComponent>;
+describe('OverlayPage', () => {
+  let component: OverlayPage;
+  let fixture: ComponentFixture<OverlayPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OverlayComponent ],
+      declarations: [ OverlayPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(OverlayComponent);
+    fixture = TestBed.createComponent(OverlayPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

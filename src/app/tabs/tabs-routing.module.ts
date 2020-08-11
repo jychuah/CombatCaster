@@ -8,27 +8,35 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
-        loadChildren: () => import('../tab1/tab1.module').then(m => m.Tab1PageModule)
+        path: 'combat',
+        loadChildren: () => import('../combat/combat.module').then(m => m.CombatPageModule)
       },
       {
-        path: 'tab2',
-        loadChildren: () => import('../tab2/tab2.module').then(m => m.Tab2PageModule)
+        path: 'encounters',
+        loadChildren: () => import('../encounters/encounters.module').then(m => m.EncountersPageModule)
       },
       {
-        path: 'tab3',
-        loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
+        path: 'monsters',
+        loadChildren: () => import('../monsters/monsters.module').then(m => m.MonstersPageModule)
+      },
+      {
+        path: 'party',
+        loadChildren: () => import('../party/party.module').then(m => m.PartyPageModule)
+      },
+      {
+        path: 'overlay',
+        loadChildren: () => import('../overlay/overlay.module').then(m => m.OverlayPageModule)
       },
       {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/tabs/combat',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/tabs/combat',
     pathMatch: 'full'
   }
 ];

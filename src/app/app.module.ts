@@ -8,7 +8,6 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { OverlayComponent } from './overlay/overlay.component';
 
 import { AngularFireModule } from '@angular/fire';
 import { firebaseConfig } from '../environments/environment';
@@ -18,7 +17,9 @@ import { FirebaseService } from './firebase.service';
 import { EncountersService } from './encounters.service';
 
 @NgModule({
-  declarations: [AppComponent, OverlayComponent],
+  declarations: [
+    AppComponent
+  ],
   entryComponents: [],
   imports: [
     BrowserModule,
