@@ -1,0 +1,17 @@
+<ion-app>
+  <overlay></overlay>
+
+  <div class="login-container" *ngIf="!firebase.user">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>
+          Log in to use this app
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-button (click)="login()">Login</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <ion-router-outlet *ngIf="firebase.user"></ion-router-outlet>
+</ion-app>

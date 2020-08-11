@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "combatcaster-28379": {
+      "hosting": {
+        "app": [
+          "combatcaster-28379"
+        ]
+      }
+    }
+  }
+}
