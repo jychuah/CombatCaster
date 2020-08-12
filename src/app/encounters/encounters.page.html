@@ -5,5 +5,7 @@
 </ion-header>
 
 <ion-content>
-  <encounter *ngFor="let encounter of encounters.data.encounters" [encounter]="encounter"></encounter>
+  <encounter 
+    *ngFor="let encounter of data.encounters | keyvalue" 
+    [uid]="encounter.key"></encounter>
 </ion-content>

@@ -4,7 +4,7 @@ import { OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { EncountersService } from './encounters.service';
+import { DataService } from './data.service';
 import { FirebaseService } from './firebase.service';
 import { Encounter } from './types';
 
@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private firebase: FirebaseService,
-    private encounters: EncountersService
+    private data: DataService
   ) {
     this.initializeApp();
   }
@@ -32,8 +32,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("Ion view entered");
-    console.log(this.firebase.user);
   }
 
   login() {

@@ -1,21 +1,22 @@
-<ion-card *ngIf="display === 'card'">
+<ion-card>
   <ion-card-header>
-    <ion-card-title>{{ monster.name }}</ion-card-title>
+    <ion-card-title>{{ data.monsters[uid].name }}</ion-card-title>
   </ion-card-header>
   <ion-card-content>
     <div>
       Stats
       <ion-item>
-        AC {{ monster.ac }}
+        AC {{ data.monsters[uid].ac }}
       </ion-item>
       <ion-item>
-        {{ monster.maxHP }} HP
+        {{ data.monsters[uid].maxHP }} HP
       </ion-item>
     </div>
     <div>
       Attacks
-      <ion-item *ngFor="let attack of monster.attacks">
-        {{ attack.name }}: +{{ attack.bonus }}, {{ attack.medianDamage }} dmg, ({{ attack.dice}})
+      <ion-item *ngFor="let attack of data.monsters[uid].attacks">
+        {{ data.monsters[uid].name }}:
+        +{{ attack.bonus }}, {{ attack.medianDamage }} dmg, ({{ attack.dice }})
       </ion-item>  
     </div>
   </ion-card-content>

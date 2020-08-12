@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SpawnGroup } from '../../types';
-import { EncountersService } from '../../encounters.service';
+import { DataService } from '../../data.service';
 
 @Component({
   selector: 'group',
@@ -10,7 +10,7 @@ import { EncountersService } from '../../encounters.service';
 export class GroupComponent implements OnInit {
   @Input('spawngroup') spawnGroup: SpawnGroup;
 
-  constructor(public encounters: EncountersService) { }
+  constructor(public data: DataService) { }
 
   ngOnInit() {}
 

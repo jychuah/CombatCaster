@@ -5,5 +5,7 @@
 </ion-header>
 
 <ion-content>
-  <monster *ngFor="let monster of encounters.data.monsters" [monster]="monster"></monster>
+  <monster 
+    *ngFor="let monster of data.monsters | keyvalue" 
+    [uid]="monster.key"></monster>
 </ion-content>

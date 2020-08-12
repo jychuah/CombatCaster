@@ -4,7 +4,6 @@ export interface Combatant {
   name?: string,
   currentHP?: number,
   portrait?: string,
-  uid: string,
 }
 
 export interface Attack {
@@ -37,14 +36,18 @@ export interface Combat {
 }
 
 export interface Encounter {
-  uid: string,
   name: string,
   groups: SpawnGroup[],
 }
 
-export interface AppData {
-  party: Player[],
-  monsters: Monster[],
-  encounters: Encounter[],
-  combat: Combat,
+export interface PlayerMap {
+  [uid: string]: Player
+}
+
+export interface MonsterMap {
+  [uid: string]: Monster
+}
+
+export interface EncounterMap {
+  [uid: string]: Encounter
 }

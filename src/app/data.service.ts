@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AppData, Player, Monster, Combatant } from './types';
+import { 
+  EncounterMap,
+  PlayerMap,
+  MonsterMap,
+  Combat, Player, Monster, Combatant } from './types';
 import { FirebaseService } from './firebase.service';
 import { bobash } from './fixtures/players.fixture';
 import { kobold } from './fixtures/monsters.fixture';
@@ -13,15 +17,20 @@ const statBonus = [ 0, -5, -4, -4, -3, -3, -2, -2,
 @Injectable({
   providedIn: 'root'
 })
-export class EncountersService {
-  public data: AppData = {
-    party: [ bobash ],
-    monsters: [ kobold ],
-    encounters: [ encounter ],
-    combat: {
-      encounter: null,
-      combatants: []
-    }
+export class DataService {
+  public party: PlayerMap = {
+    'zHMuP33p9SfmILdQHNiy9oLBor93': bobash,
+  }
+  public monsters: MonsterMap = {
+    'kobold001': kobold
+  }
+  public encounters: EncounterMap = {
+    'encounters001': encounter
+  }
+
+  combat: Combat = {
+    encounter: null,
+    combatants: []
   }
 
   constructor(private firebase: FirebaseService,
@@ -29,22 +38,18 @@ export class EncountersService {
               private sanitizer: DomSanitizer) {
   }
 
-  getMonster(uid: string) : Monster {
-    return this.data.monsters.find(monster => monster.uid === uid);
-  }
 
   replacePlayer(uid: string, player: Player) {
-    let index = this.data.party.findIndex(item => item.uid === player.uid);
-    this.data.party.splice(index, 1, player);
+    this.party[uid] = { ...player };
   }
 
   runEncounter(uid: string) {
-    this.data.combat.encounter = { ...(this.data.encounters.find(encounter => encounter.uid === uid))}
-    this.data.combat.combatants = [ ];
+    this.combat.encounter = { ...(this.encounters[uid])}
+    this.combat.combatants = [ ];
   }
 
   syncPlayer(uid: string) {
-    let player: Player = this.data.party.find(player => player.uid === uid);
+    let player: Player = { ...this.party[uid] };
     this.http.get("https://cors-anywhere.herokuapp.com/" + player.url).toPromise().then(
       (response: any) => {
         let data = response.data;

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EncountersService } from '../encounters.service';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-monsters',
@@ -8,7 +8,7 @@ import { EncountersService } from '../encounters.service';
 })
 export class MonstersPage implements OnInit {
 
-  constructor(public encounters: EncountersService) { }
+  constructor(public data: DataService) { }
 
   ngOnInit() {
   }

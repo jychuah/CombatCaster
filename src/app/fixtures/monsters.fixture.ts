@@ -2,7 +2,6 @@ import { Monster, Attack, Combatant } from '../types';
 
 export const kobold: Monster = {
   name: 'Kobold',
-  uid: 'kobold001',
   ac: 12,
   maxHP: 5,
   attacks: [

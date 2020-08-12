@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Encounter } from '../../types';
+import { DataService } from '../../data.service';
 
 @Component({
   selector: 'encounter',
@@ -7,9 +7,9 @@ import { Encounter } from '../../types';
   styleUrls: ['./encounter.component.scss'],
 })
 export class EncounterComponent implements OnInit {
-  @Input('encounter') encounter: Encounter;
+  @Input('uid') uid: string;
 
-  constructor() { }
+  constructor(public data: DataService) { }
 
   ngOnInit() {}
 

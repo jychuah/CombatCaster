@@ -14,7 +14,7 @@ import { firebaseConfig } from '../environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { FirebaseService } from './firebase.service';
-import { EncountersService } from './encounters.service';
+import { DataService } from './data.service';
 import { ComponentsModule } from './components/components.module';
 import { HttpClientModule } from '@angular/common/http';
 @NgModule({
@@ -36,7 +36,7 @@ import { HttpClientModule } from '@angular/common/http';
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     FirebaseService,
-    EncountersService
+    DataService
   ],
   bootstrap: [AppComponent]
 })

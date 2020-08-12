@@ -1,11 +1,11 @@
 <ion-card>
   <ion-card-header>
-    <img [src]="encounters.getPortrait(player)" />
-    <ion-card-title>{{ player.name }}</ion-card-title>
+    <img [src]="data.getPortrait(data.party[uid])" />
+    <ion-card-title>{{ data.party[uid].name }}</ion-card-title>
     <ion-button (click)="sync()">Sync</ion-button>
   </ion-card-header>
   <ion-card-content>
-    AC: {{ player.ac }}
-    HP: {{ player.currentHP }} / {{ player.maxHP }}
+    AC: {{ data.party[uid].ac }}
+    HP: {{ data.party[uid].currentHP }} / {{ data.party[uid].maxHP }}
   </ion-card-content>
 </ion-card>
