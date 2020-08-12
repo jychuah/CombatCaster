@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { PartyPageRoutingModule } from './party-routing.module';
 
 import { PartyPage } from './party.page';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PartyPageRoutingModule
+    PartyPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [PartyPage]
 })

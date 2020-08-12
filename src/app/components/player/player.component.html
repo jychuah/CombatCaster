@@ -1,0 +1,11 @@
+<ion-card>
+  <ion-card-header>
+    <img [src]="encounters.getPortrait(player)" />
+    <ion-card-title>{{ player.name }}</ion-card-title>
+    <ion-button (click)="sync()">Sync</ion-button>
+  </ion-card-header>
+  <ion-card-content>
+    AC: {{ player.ac }}
+    HP: {{ player.currentHP }} / {{ player.maxHP }}
+  </ion-card-content>
+</ion-card>

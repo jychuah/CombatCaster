@@ -5,5 +5,5 @@
 </ion-header>
 
 <ion-content>
-
+  <monster *ngFor="let monster of encounters.data.monsters" [monster]="monster"></monster>
 </ion-content>

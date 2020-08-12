@@ -1,13 +1,14 @@
 export interface Combatant {
-  ac: number,
-  maxHP: number,
-  name: string,
+  ac?: number,
+  maxHP?: number,
+  name?: string,
   currentHP?: number,
-  portrait?: any,
+  portrait?: string,
   uid: string,
 }
 
 export interface Attack {
+  name: string,
   bonus: number,
   medianDamage: number,
   dice: string
@@ -21,22 +22,24 @@ export interface Monster extends Combatant {
   attacks: Attack[]
 }
 
-export interface Group {
-  combatants: Combatant[],
-  initiative: number,
-  visible: boolean
+export interface MonsterSpawn {
+  monsterUid: string,
+  count: number
+}
+
+export interface SpawnGroup {
+  spawns: MonsterSpawn[]
 }
 
 export interface Combat {
   encounterUid: string,
-  groups: Group[]
+  combatants: Combatant[]
 }
 
 export interface Encounter {
   uid: string,
   name: string,
-  combatants: Combatant[],
-  groups: Group[],
+  groups: SpawnGroup[],
 }
 
 export interface AppData {

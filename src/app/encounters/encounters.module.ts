@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { EncountersPageRoutingModule } from './encounters-routing.module';
 
 import { EncountersPage } from './encounters.page';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    EncountersPageRoutingModule
+    EncountersPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [EncountersPage]
 })

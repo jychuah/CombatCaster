@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EncountersService } from '../encounters.service';
 
 @Component({
   selector: 'app-party',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PartyPage implements OnInit {
 
-  constructor() { }
+  constructor(public encounters: EncountersService) { }
 
   ngOnInit() {
   }

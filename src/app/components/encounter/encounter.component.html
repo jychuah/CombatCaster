@@ -1,0 +1,10 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>
+      {{ encounter.name }}
+    </ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <group *ngFor="let group of encounter.groups" [spawngroup]="group"></group>
+  </ion-card-content>
+</ion-card>

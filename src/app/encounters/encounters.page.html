@@ -1,9 +1,9 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>encounters</ion-title>
+    <ion-title>Encounters</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <encounter *ngFor="let encounter of encounters.data.encounters" [encounter]="encounter"></encounter>
 </ion-content>

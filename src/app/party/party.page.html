@@ -1,9 +1,9 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>party</ion-title>
+    <ion-title>Party</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <player *ngFor="let player of encounters.data.players" [player]="player"></player>
 </ion-content>

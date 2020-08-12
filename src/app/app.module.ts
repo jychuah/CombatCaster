@@ -15,7 +15,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { FirebaseService } from './firebase.service';
 import { EncountersService } from './encounters.service';
-
+import { ComponentsModule } from './components/components.module';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent
@@ -26,7 +27,9 @@ import { EncountersService } from './encounters.service';
     IonicModule.forRoot(),
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    ComponentsModule,
+    HttpClientModule
   ],
   providers: [
     StatusBar,
