@@ -1,9 +1,18 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>combat</ion-title>
+    <ion-title>Combat</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <div>
+    DEPLOYED
+  </div>
+  <div>
+    <h1>Staging</h1>
+    <div>
+      <h3>Party</h3>
+      <player-deployer *ngFor="let player of encounters.data.party" [player]="player"></player-deployer>
+    </div>
+  </div>
 </ion-content>

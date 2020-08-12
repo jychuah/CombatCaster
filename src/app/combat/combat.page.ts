@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { EncountersService } from '../encounters.service';
 @Component({
   selector: 'app-combat',
   templateUrl: './combat.page.html',
@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CombatPage implements OnInit {
 
-  constructor() { }
+  constructor(public encounters: EncountersService) { }
 
   ngOnInit() {
   }

@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { CombatPageRoutingModule } from './combat-routing.module';
 
 import { CombatPage } from './combat.page';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CombatPageRoutingModule
+    CombatPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [CombatPage]
 })

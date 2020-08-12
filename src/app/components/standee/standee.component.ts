@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Combatant } from '../../types';
 @Component({
-  selector: 'app-standee',
+  selector: 'standee',
   templateUrl: './standee.component.html',
   styleUrls: ['./standee.component.scss'],
 })

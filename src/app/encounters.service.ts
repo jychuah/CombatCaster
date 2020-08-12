@@ -15,11 +15,11 @@ const statBonus = [ 0, -5, -4, -4, -3, -3, -2, -2,
 })
 export class EncountersService {
   public data: AppData = {
-    players: [ bobash ],
+    party: [ bobash ],
     monsters: [ kobold ],
     encounters: [ encounter ],
     combat: {
-      encounterUid: '',
+      encounter: null,
       combatants: []
     }
   }
@@ -34,12 +34,17 @@ export class EncountersService {
   }
 
   replacePlayer(uid: string, player: Player) {
-    let index = this.data.players.findIndex(item => item.uid === player.uid);
-    this.data.players.splice(index, 1, player);
+    let index = this.data.party.findIndex(item => item.uid === player.uid);
+    this.data.party.splice(index, 1, player);
+  }
+
+  runEncounter(uid: string) {
+    this.data.combat.encounter = { ...(this.data.encounters.find(encounter => encounter.uid === uid))}
+    this.data.combat.combatants = [ ];
   }
 
   syncPlayer(uid: string) {
-    let player: Player = this.data.players.find(player => player.uid === uid);
+    let player: Player = this.data.party.find(player => player.uid === uid);
     this.http.get("https://cors-anywhere.herokuapp.com/" + player.url).toPromise().then(
       (response: any) => {
         let data = response.data;

@@ -3,6 +3,7 @@
     <ion-card-title>
       {{ encounter.name }}
     </ion-card-title>
+    <ion-button>Run Encounter</ion-button>
   </ion-card-header>
   <ion-card-content>
     <group *ngFor="let group of encounter.groups" [spawngroup]="group"></group>

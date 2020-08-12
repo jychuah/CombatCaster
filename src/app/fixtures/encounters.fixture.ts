@@ -7,7 +7,7 @@ export const encounter: Encounter = {
     {
       spawns: [
         {
-          monsterUid: 'kobold001',
+          uid: 'kobold001',
           count: 3
         }
       ]

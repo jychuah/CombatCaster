@@ -23,7 +23,7 @@ export interface Monster extends Combatant {
 }
 
 export interface MonsterSpawn {
-  monsterUid: string,
+  uid: string,
   count: number
 }
 
@@ -32,7 +32,7 @@ export interface SpawnGroup {
 }
 
 export interface Combat {
-  encounterUid: string,
+  encounter: Encounter,
   combatants: Combatant[]
 }
 
@@ -43,7 +43,7 @@ export interface Encounter {
 }
 
 export interface AppData {
-  players: Player[],
+  party: Player[],
   monsters: Monster[],
   encounters: Encounter[],
   combat: Combat,
