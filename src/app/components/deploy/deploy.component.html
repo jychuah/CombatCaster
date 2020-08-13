@@ -1,5 +1,5 @@
 <div class="deploy">
   <ion-label>i</ion-label>
   <ion-input [(ngModel)]="initiative" type="number"></ion-input>
-  <ion-button (click)="deployClick()">Deploy</ion-button>
+  <ion-button (click)="deployClick()" [disabled]="!allowRandom && !initiative">Deploy</ion-button>
 </div>
