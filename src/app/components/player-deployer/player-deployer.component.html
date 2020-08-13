@@ -1,6 +1,4 @@
 <div class="player-deployer">
   <standee [combatant]="data.party[uid]"></standee>
-  <ion-label stacked>Initiative</ion-label>
-  <ion-input [(ngModel)]="initiative" type="number"></ion-input>
-  <ion-button (click)="deploy()">Deploy</ion-button>
+  <deploy (onDeploy)="deploy($event)"></deploy>
 </div>

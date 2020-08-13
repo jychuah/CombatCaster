@@ -3,13 +3,14 @@ import {
   EncounterMap,
   PlayerMap,
   MonsterMap,
-  Combat, Player, Monster, Combatant } from './types';
+  Combat, Player, SpawnGroup, Monster, Combatant } from './types';
 import { FirebaseService } from './firebase.service';
 import { bobash } from './fixtures/players.fixture';
-import { kobold } from './fixtures/monsters.fixture';
+import { kobold, goblin } from './fixtures/monsters.fixture';
 import { encounter } from './fixtures/encounters.fixture';
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 
 const statBonus = [ 0, -5, -4, -4, -3, -3, -2, -2, 
@@ -23,7 +24,8 @@ export class DataService {
     'zHMuP33p9SfmILdQHNiy9oLBor93': bobash,
   }
   public monsters: MonsterMap = {
-    'kobold001': kobold
+    'kobold001': kobold,
+    'goblin001': goblin,
   }
   public encounters: EncounterMap = {
     'encounters001': encounter
@@ -36,7 +38,8 @@ export class DataService {
 
   constructor(private firebase: FirebaseService,
               private http: HttpClient,
-              private sanitizer: DomSanitizer) {
+              private sanitizer: DomSanitizer,
+              private router: Router) {
   }
 
 
@@ -47,6 +50,7 @@ export class DataService {
   runEncounter(uid: string) {
     this.combat.encounter = { ...(this.encounters[uid])}
     this.combat.combatants = [ ];
+    this.router.navigateByUrl('/tabs/combat');
   }
 
   syncPlayer(uid: string) {
@@ -120,5 +124,22 @@ export class DataService {
 
   deployPlayer(uid: string, initiative: number) {
     this.insertCombatant({...this.party[uid], initiative, type: "player" });
+  }
+
+  deployGroup(group: SpawnGroup, initiative: number) {
+    group.spawns.forEach(
+      (spawn) => {
+        for (let i = 0; i < spawn.count; i++) {
+          this.insertCombatant(
+            {
+              ...this.monsters[spawn.uid], 
+              initiative,
+              currentHP: this.monsters[spawn.uid].maxHP,
+              type: "monster"
+            }
+          );
+        }
+      }
+    )
   }
 }

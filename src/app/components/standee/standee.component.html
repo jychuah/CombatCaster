@@ -1,9 +1,15 @@
 <div class="standee">
   <div>
-    {{ combatant.name }}<br />
-    AC {{ combatant.ac }}<br />
-    {{ combatant.currentHP != null ? combatant.currentHP : combatant.maxHP }} 
-    / {{ combatant.maxHP }} HP<br />
-    Initiative {{ combatant.initiative }}
+    <div class="header">
+      <span class="name">{{ combatant.name }}</span>
+      <span class="initiative" *ngIf="combatant.initiative">i{{ combatant.initiative }}</span>
+    </div>
+    <div>
+      AC {{ combatant.ac }}
+    </div>
+    <div>
+      <span *ngIf="combatant.currentHP != null">{{ combatant.currentHP }} / </span>
+      {{ combatant.maxHP }} HP
+    </div>
   </div>
 </div>

@@ -13,4 +13,8 @@ export class EncounterComponent implements OnInit {
 
   ngOnInit() {}
 
+  runEncounter() {
+    this.data.runEncounter(this.uid);
+  }
+
 }

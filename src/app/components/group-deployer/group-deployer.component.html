@@ -1,3 +1,9 @@
-<p>
-  group-deployer works!
-</p>
+<div class="group-deployer">
+  <deploy (onDeploy)="deploy($event)"></deploy>
+  <div class="spawn-group">
+    <div>
+      Group {{ index + 1 }}
+    </div>
+    <group [spawngroup]="spawngroup"></group>
+  </div>
+</div>

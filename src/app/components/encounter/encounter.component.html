@@ -3,9 +3,15 @@
     <ion-card-title>
       {{ data.encounters[uid].name }}
     </ion-card-title>
-    <ion-button>Run Encounter</ion-button>
+    <ion-button (click)="runEncounter()">Run Encounter</ion-button>
   </ion-card-header>
   <ion-card-content>
-    <group *ngFor="let group of data.encounters[uid].groups" [spawngroup]="group"></group>
+    <div *ngFor="let group of data.encounters[uid].groups; index as index">
+      <div>
+        Group {{ index + 1}}
+      </div>
+      <group [spawngroup]="group"></group>
+    </div>
+    
   </ion-card-content>
 </ion-card>

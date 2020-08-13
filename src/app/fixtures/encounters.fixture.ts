@@ -7,6 +7,18 @@ export const encounter: Encounter = {
       spawns: [
         {
           uid: 'kobold001',
+          count: 2
+        },
+        {
+          uid: 'goblin001',
+          count: 1
+        }
+      ]
+    },
+    {
+      spawns: [
+        {
+          uid: 'kobold001',
           count: 3
         }
       ]

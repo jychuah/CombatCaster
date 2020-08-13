@@ -1,5 +1,7 @@
-<ion-list>
-  <ion-item *ngFor="let group of spawnGroup.spawns">
-    {{ group.count }}x {{ data.monsters[group.uid].name }}
-  </ion-item>
-</ion-list>
+<div class="group">
+  <ion-list>
+    <ion-item *ngFor="let group of spawnGroup.spawns">
+      {{ group.count }}x {{ data.monsters[group.uid].name }}
+    </ion-item>
+  </ion-list>
+</div>

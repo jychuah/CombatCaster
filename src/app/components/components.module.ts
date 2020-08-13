@@ -9,6 +9,8 @@ import { StandeeComponent } from './standee/standee.component';
 import { PlayerComponent } from './player/player.component';
 import { PlayerDeployerComponent } from './player-deployer/player-deployer.component';
 import { GroupDeployerComponent } from './group-deployer/group-deployer.component';
+import { DeployComponent } from './deploy/deploy.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -22,7 +24,8 @@ import { GroupDeployerComponent } from './group-deployer/group-deployer.componen
     StandeeComponent,
     PlayerComponent,
     PlayerDeployerComponent,
-    GroupDeployerComponent
+    GroupDeployerComponent,
+    DeployComponent
   ],
   exports:[
     MonsterComponent,
@@ -31,7 +34,8 @@ import { GroupDeployerComponent } from './group-deployer/group-deployer.componen
     StandeeComponent,
     PlayerComponent,
     PlayerDeployerComponent,
-    GroupDeployerComponent
+    GroupDeployerComponent,
+    DeployComponent
   ]
 })
 export class ComponentsModule {}

@@ -7,15 +7,14 @@ import { DataService } from '../../data.service';
 })
 export class PlayerDeployerComponent implements OnInit {
   @Input('uid') uid: string;
-  initiative: number;
 
   constructor(public data: DataService) { }
 
   ngOnInit() {
   }
 
-  deploy() {
-    this.data.deployPlayer(this.uid, this.initiative);
+  deploy($event) {
+    this.data.deployPlayer(this.uid, $event.initiative);
   }
 
 }
