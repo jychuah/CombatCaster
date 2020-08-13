@@ -6,7 +6,10 @@
 
 <ion-content>
   <div>
-    DEPLOYED
+    <h1>Deployed</h1>
+    <div>
+      <standee *ngFor="let combatant of data.combat.combatants" [combatant]="combatant"></standee>
+    </div>
   </div>
   <div>
     <h1>Staging</h1>

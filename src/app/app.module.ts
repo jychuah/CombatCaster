@@ -17,6 +17,8 @@ import { FirebaseService } from './firebase.service';
 import { DataService } from './data.service';
 import { ComponentsModule } from './components/components.module';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -29,7 +31,8 @@ import { HttpClientModule } from '@angular/common/http';
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
     ComponentsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     StatusBar,

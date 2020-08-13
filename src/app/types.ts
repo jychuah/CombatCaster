@@ -4,6 +4,8 @@ export interface Combatant {
   name?: string,
   currentHP?: number,
   portrait?: string,
+  initiative?: number,
+  type?: string
 }
 
 export interface Attack {

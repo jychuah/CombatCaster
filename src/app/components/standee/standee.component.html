@@ -1,7 +1,9 @@
 <div class="standee">
   <div>
     {{ combatant.name }}<br />
-    {{ combatant.ac }}<br />
-    {{ combatant.currentHP }} / {{ combatant.maxHP }}
+    AC {{ combatant.ac }}<br />
+    {{ combatant.currentHP != null ? combatant.currentHP : combatant.maxHP }} 
+    / {{ combatant.maxHP }} HP<br />
+    Initiative {{ combatant.initiative }}
   </div>
 </div>

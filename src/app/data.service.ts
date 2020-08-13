@@ -11,6 +11,7 @@ import { encounter } from './fixtures/encounters.fixture';
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
+
 const statBonus = [ 0, -5, -4, -4, -3, -3, -2, -2, 
   -1, -1, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10 ];
 
@@ -101,5 +102,23 @@ export class DataService {
     } else {
       return null;
     }
+  }
+
+  insertCombatant(combatant: Combatant) {
+    let index = 0;
+
+    if (this.combat.combatants.length === 0) {
+      this.combat.combatants = [ combatant ];
+      return;
+    }
+    while (index < this.combat.combatants.length && 
+           this.combat.combatants[index].initiative >= combatant.initiative) {
+      index += 1;
+    }
+    this.combat.combatants.splice(index, 0, combatant);
+  }
+
+  deployPlayer(uid: string, initiative: number) {
+    this.insertCombatant({...this.party[uid], initiative, type: "player" });
   }
 }
