@@ -1,0 +1,6 @@
+<div class="combat-group">
+  Initiative: {{ group.initiative }}
+  <div class="combatant" *ngFor="let combatant of group.combatants | keyvalue">
+    <standee [combatant]="combatant.value"></standee>
+  </div>
+</div>

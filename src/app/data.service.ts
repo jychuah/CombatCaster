@@ -3,7 +3,10 @@ import {
   EncounterMap,
   PlayerMap,
   MonsterMap,
-  Combat, Player, SpawnGroup, Monster, Combatant } from './types';
+  Combat, Player, SpawnGroup, 
+  Monster, 
+  CombatGroup,
+  Combatant } from './types';
 import { FirebaseService } from './firebase.service';
 import { bobash } from './fixtures/players.fixture';
 import { kobold, goblin } from './fixtures/monsters.fixture';
@@ -11,6 +14,7 @@ import { encounter } from './fixtures/encounters.fixture';
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import * as uuid from 'uuid';
 
 
 const statBonus = [ 0, -5, -4, -4, -3, -3, -2, -2, 
@@ -33,7 +37,7 @@ export class DataService {
 
   combat: Combat = {
     encounter: null,
-    combatants: []
+    groups: { }
   }
 
   constructor(private firebase: FirebaseService,
@@ -49,7 +53,7 @@ export class DataService {
 
   runEncounter(uid: string) {
     this.combat.encounter = { ...(this.encounters[uid])}
-    this.combat.combatants = [ ];
+    this.combat.groups = { };
     this.router.navigateByUrl('/tabs/combat');
   }
 
@@ -108,36 +112,42 @@ export class DataService {
     }
   }
 
-  insertCombatant(combatant: Combatant) {
-    let index = 0;
-
-    if (this.combat.combatants.length === 0) {
-      this.combat.combatants = [ combatant ];
-      return;
-    }
-    while (index < this.combat.combatants.length && 
-           this.combat.combatants[index].initiative >= combatant.initiative) {
-      index += 1;
-    }
-    this.combat.combatants.splice(index, 0, combatant);
+  insertCombatGroup(group: CombatGroup) {
+    this.combat.groups = {
+      ...this.combat.groups,
+      [ uuid.v4().substring(0, 8) ]: group
+    };
   }
 
   deployPlayer(uid: string, initiative: number) {
-    this.insertCombatant({...this.party[uid], initiative, type: "player" });
+    let group: CombatGroup = {
+      combatants: {
+        [uid]: {...this.party[uid], currentHP: this.party[uid].maxHP},
+      },
+      initiative,
+      type: "player",
+      uid
+    }
+    this.insertCombatGroup(group);
   }
 
   deployGroup(group: SpawnGroup, initiative: number) {
-    for (const [ monsterUID, count ] of Object.entries(group)) {
+    for (const [ uid, count ] of Object.entries(group)) {
+      let combatants = { };
       for (let i = 0; i < count; i++) {
-        this.insertCombatant(
-          {
-            ...this.monsters[monsterUID], 
-            initiative,
-            currentHP: this.monsters[monsterUID].maxHP,
-            type: "monster"
-          }
-        )
+        combatants[ uuid.v4().substring(0, 8) ] = {
+          ...this.monsters[uid],
+          currentHP: this.monsters[uid].maxHP
+        }
       }
+      this.insertCombatGroup(
+        {
+          combatants,
+          initiative,
+          type: "monster",
+          uid
+        }
+      )
     }
   }
 }

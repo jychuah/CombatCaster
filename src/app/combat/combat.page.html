@@ -7,9 +7,9 @@
 <ion-content>
   <div>
     <h1>Deployed</h1>
-    <div>
-      <standee *ngFor="let combatant of data.combat.combatants" [combatant]="combatant"></standee>
-    </div>
+    <combat-group 
+      *ngFor="let group of data.combat.groups | initiative"
+      [group]="group.value"></combat-group>
   </div>
   <div>
     <h1>Staging</h1>

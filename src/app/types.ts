@@ -3,9 +3,7 @@ export interface Combatant {
   maxHP?: number,
   name?: string,
   currentHP?: number,
-  portrait?: string,
-  initiative?: number,
-  type?: string
+  portrait?: string
 }
 
 export interface Attack {
@@ -24,13 +22,24 @@ export interface Monster extends Combatant {
   attacks: Attack[]
 }
 
+export interface CombatGroup {
+  combatants: {
+    [uid: string]: Combatant
+  },
+  initiative: number,
+  type: string,
+  uid: string
+}
+
 export interface SpawnGroup {
   [uid: string]: number
 }
 
 export interface Combat {
   encounter: Encounter,
-  combatants: Combatant[]
+  groups: {
+    [uid: string]: CombatGroup
+  }
 }
 
 export interface Encounter {
