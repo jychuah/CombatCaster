@@ -127,19 +127,17 @@ export class DataService {
   }
 
   deployGroup(group: SpawnGroup, initiative: number) {
-    group.spawns.forEach(
-      (spawn) => {
-        for (let i = 0; i < spawn.count; i++) {
-          this.insertCombatant(
-            {
-              ...this.monsters[spawn.uid], 
-              initiative,
-              currentHP: this.monsters[spawn.uid].maxHP,
-              type: "monster"
-            }
-          );
-        }
+    for (const [ monsterUID, count ] of Object.entries(group)) {
+      for (let i = 0; i < count; i++) {
+        this.insertCombatant(
+          {
+            ...this.monsters[monsterUID], 
+            initiative,
+            currentHP: this.monsters[monsterUID].maxHP,
+            type: "monster"
+          }
+        )
       }
-    )
+    }
   }
 }

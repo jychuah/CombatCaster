@@ -20,8 +20,8 @@
         [uid]="player.key"></player-deployer>
       <div *ngIf="data.combat.encounter">
         <h3>Encounter: {{ data.combat.encounter.name }}</h3>
-        <div *ngFor="let group of data.combat.encounter.groups; index as index">
-          <group-deployer [spawngroup]="group" [index]="index"></group-deployer>
+        <div *ngFor="let group of data.combat.encounter.groups | keyvalue; index as index">
+          <group-deployer [spawngroup]="group.value" [index]="index"></group-deployer>
         </div>
       </div>
    </div>

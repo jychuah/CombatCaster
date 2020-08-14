@@ -6,11 +6,11 @@
     <ion-button (click)="runEncounter()">Run Encounter</ion-button>
   </ion-card-header>
   <ion-card-content>
-    <div *ngFor="let group of data.encounters[uid].groups; index as index">
+    <div *ngFor="let group of data.encounters[uid].groups | keyvalue; index as index">
       <div>
         Group {{ index + 1}}
       </div>
-      <group [spawngroup]="group"></group>
+      <group [spawngroup]="group.value"></group>
     </div>
     
   </ion-card-content>
