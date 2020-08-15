@@ -29,6 +29,10 @@ const routes: Routes = [
   {
     path: 'edit-monster',
     loadChildren: () => import('./edit-monster/edit-monster.module').then( m => m.EditMonsterPageModule)
+  },
+  {
+    path: 'edit-encounter',
+    loadChildren: () => import('./edit-encounter/edit-encounter.module').then( m => m.EditEncounterPageModule)
   }
 ];
 @NgModule({

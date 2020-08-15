@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Edit {{ encounter.name }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancel()">Cancel</ion-button>
+      <ion-button (click)="save()">Save</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-label stacked>Name</ion-label>
+  <ion-input type="text" [(ngModel)]="encounter.name"></ion-input>
+  <div class="group-header">
+    <h3>Groups</h3>
+    <ion-button (click)="addGroup()">Add Group</ion-button>
+  </div>
+  <div *ngFor="let group of encounter.groups; index as groupIndex">
+    <h4>Group {{ groupIndex + 1 }}</h4>
+    <div *ngFor="let spawn of group.spawns | keyvalue; index as index" class="spawn">
+      <div>
+        <ion-label>Count</ion-label>
+        <ion-input [(ngModel)]="spawn.value.count" type="number"></ion-input>
+      </div>
+      <ion-select interface="popover" [(ngModel)]="spawn.value.uid">
+        <ion-select-option
+          *ngFor="let monster of data.monsters | keyvalue"
+          [value]="monster.key">
+          {{ monster.value.name }}
+        </ion-select-option>
+      </ion-select>
+    </div>
+    <ion-button (click)="addMonster(groupIndex)">Add monster</ion-button>
+    <ion-button (click)="deleteGroup(groupIndex)" color="danger">Delete Group</ion-button>
+  </div>
+</ion-content>

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DataService } from '../../data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'encounter',
@@ -9,12 +10,16 @@ import { DataService } from '../../data.service';
 export class EncounterComponent implements OnInit {
   @Input('uid') uid: string;
 
-  constructor(public data: DataService) { }
+  constructor(public data: DataService, public router: Router) { }
 
   ngOnInit() {}
 
   runEncounter() {
     this.data.runEncounter(this.uid);
+  }
+
+  edit() {
+    this.router.navigateByUrl(`/edit-encounter/${this.uid}`);
   }
 
 }

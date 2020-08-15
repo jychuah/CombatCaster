@@ -33,8 +33,13 @@ export interface CombatGroup {
   uid: string
 }
 
+export interface Spawn {
+  uid: string,
+  count: number
+}
+
 export interface SpawnGroup {
-  [uid: string]: number
+  spawns: Spawn[]
 }
 
 export interface Combat {
@@ -47,9 +52,7 @@ export interface Combat {
 
 export interface Encounter {
   name: string,
-  groups: {
-    [uid: string]: SpawnGroup
-  }
+  groups: SpawnGroup[]
 }
 
 export interface PlayerMap {

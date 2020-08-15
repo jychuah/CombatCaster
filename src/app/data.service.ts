@@ -4,7 +4,7 @@ import {
   PlayerMap,
   MonsterMap,
   Combat, Player, SpawnGroup, 
-  Monster, 
+  Monster, Encounter,
   CombatGroup,
   Combatant } from './types';
 import { FirebaseService } from './firebase.service';
@@ -135,24 +135,27 @@ export class DataService {
   }
 
   deployGroup(group: SpawnGroup, initiative: number) {
-    for (const [ uid, count ] of Object.entries(group)) {
-      let combatants = { };
-      for (let i = 0; i < count; i++) {
-        combatants[ uuid.v4().substring(0, 8) ] = {
-          ...this.monsters[uid],
-          currentHP: this.monsters[uid].maxHP
+    group.spawns.forEach(
+      spawn => {
+        if (!spawn.uid) return;
+        let combatants = { };
+        for (let i = 0; i < spawn.count; i++) {
+          combatants[ uuid.v4().substring(0, 8) ] = {
+            ...this.monsters[spawn.uid],
+            currentHP: this.monsters[spawn.uid].maxHP
+          }
         }
+        this.insertCombatGroup(
+          {
+            combatants,
+            initiative,
+            type: "monster",
+            portrait: null,
+            uid: spawn.uid
+          }
+        )
       }
-      this.insertCombatGroup(
-        {
-          combatants,
-          initiative,
-          type: "monster",
-          portrait: null,
-          uid
-        }
-      )
-    }
+    )
   }
 
   applyHealth(groupUID: string, combatantUID: string, data: any) {
@@ -228,5 +231,9 @@ export class DataService {
 
   saveMonster(uid: string, monster: Monster) {
     this.monsters[uid] = { ...monster }
+  }
+
+  saveEncounter(uid: string, encounter: Encounter) {
+    this.encounters[uid] = { ...encounter };
   }
 }

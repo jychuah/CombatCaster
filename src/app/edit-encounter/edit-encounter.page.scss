@@ -1,0 +1,15 @@
+.spawn {
+  display: flex;
+  align-items: flex-end;
+  ion-input {
+    width: 4em;
+  }
+}
+
+.group-header {
+  display: flex;
+  align-items: center;
+  ion-button {
+    margin-left: 1em;
+  }
+}

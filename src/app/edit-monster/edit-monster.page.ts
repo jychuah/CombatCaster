@@ -19,8 +19,8 @@ export class EditMonsterPage implements OnInit {
     public router: Router) {
     this.route.params.subscribe(
       params => {
-        this.monster = { ...this.data.monsters[params.id] };
-        this.uid = params.id;
+        this.monster = { ...this.data.monsters[params.uid] };
+        this.uid = params.uid;
       }
     );
   }

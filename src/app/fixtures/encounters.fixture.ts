@@ -2,13 +2,26 @@ import { Encounter } from '../types';
 
 export const encounter: Encounter = {
   name: 'Test Encounter',
-  groups: {
-    'spawn001': {
-      'kobold001': 2,
-      'goblin001': 1
+  groups: [
+    {
+      spawns: [
+        {
+          uid: 'kobold001',
+          count: 2
+        },
+        {
+          uid: 'goblin001',
+          count: 1
+        }
+      ]
     },
-    'spawn002': {
-      'kobold001': 3
+    {
+      spawns: [
+        {
+          uid: 'kobold001',
+          count: 3
+        }
+      ]
     }
-  }
+  ]
 }
