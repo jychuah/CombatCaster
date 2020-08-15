@@ -25,6 +25,10 @@ const routes: Routes = [
   {
     path: 'combat',
     loadChildren: () => import('./combat/combat.module').then( m => m.CombatPageModule)
+  },
+  {
+    path: 'edit-monster',
+    loadChildren: () => import('./edit-monster/edit-monster.module').then( m => m.EditMonsterPageModule)
   }
 ];
 @NgModule({

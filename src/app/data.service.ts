@@ -225,4 +225,8 @@ export class DataService {
     }
     this.combat.initiative = search;
   }
+
+  saveMonster(uid: string, monster: Monster) {
+    this.monsters[uid] = { ...monster }
+  }
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DataService } from '../../data.service';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'monster',
   templateUrl: './monster.component.html',
@@ -7,9 +9,18 @@ import { DataService } from '../../data.service';
 })
 export class MonsterComponent implements OnInit {
   @Input('uid') uid: string;
+  collapse: boolean = true;
 
-  constructor(public data: DataService) { }
+  constructor(public data: DataService, public router: Router) { }
 
   ngOnInit() {}
+
+  edit() {
+    this.router.navigateByUrl(`/edit-monster/${this.uid}`);
+  }
+  
+  toggleCollapse() {
+    this.collapse = !this.collapse;
+  }
 
 }

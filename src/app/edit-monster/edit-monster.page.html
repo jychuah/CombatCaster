@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Edit {{ monster.name }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancel()">Cancel</ion-button>
+      <ion-button (click)="save()">Save</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-label>Name</ion-label>
+  <ion-input type="text" [(ngModel)]="monster.name"></ion-input>
+  <ion-label>AC</ion-label>
+  <ion-input type="number" [(ngModel)]="monster.ac"></ion-input>
+  <ion-label>HP</ion-label>
+  <ion-input type="number" [(ngModel)]="monster.maxHP"></ion-input>
+  <ion-label>Attacks per round</ion-label>
+  <ion-input type="number" [(ngModel)]="monster.numAttacks"></ion-input>
+  <h3>Attacks</h3>
+  <div class="attacks" *ngFor="let attack of monster.attacks; index as index">
+    <div>
+      <ion-label stacked>Name</ion-label>
+      <ion-input type="text" [(ngModel)]="monster.attacks[index].name"></ion-input>
+    </div>
+    <div>
+      <ion-label stacked>Bonus</ion-label>
+      <ion-input type="number" [(ngModel)]="monster.attacks[index].bonus"></ion-input>
+    </div>
+    <div>
+      <ion-label stacked>Damage</ion-label>
+      <ion-input type="number" [(ngModel)]="monster.attacks[index].medianDamage"></ion-input>
+    </div>
+    <div>
+      <ion-label stacked>Dice</ion-label>
+      <ion-input type="text" [(ngModel)]="monster.attacks[index].dice"></ion-input>
+    </div>
+    <ion-button>Delete</ion-button>
+  </div>
+  <ion-button (click)="newAttack()">New Attack</ion-button>
+</ion-content>

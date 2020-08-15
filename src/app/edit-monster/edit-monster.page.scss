@@ -1,0 +1,9 @@
+.attacks {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  div {
+    flex-grow: 1;
+  }
+  margin-bottom: 1em;
+}
