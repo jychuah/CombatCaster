@@ -29,6 +29,7 @@ export interface CombatGroup {
   initiative: number,
   portrait: string,
   type: string,
+  focus?: boolean,
   uid: string
 }
 
@@ -40,7 +41,8 @@ export interface Combat {
   encounter: Encounter,
   groups: {
     [uid: string]: CombatGroup
-  }
+  },
+  initiative: number
 }
 
 export interface Encounter {

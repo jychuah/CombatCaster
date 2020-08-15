@@ -3,10 +3,20 @@
     <img [src]="data.getPortrait(group.portrait)">
   </ion-avatar>
   <ion-label>
-    <ion-button>Focus</ion-button>
-    <standee
-      *ngFor="let combatant of group.combatants | keyvalue" 
-      [combatant]="combatant.value"
-      (click)="showCombatPopover(combatant.key)"></standee>
+    <div class="group-content">
+      <div class="standees">
+        <standee
+        *ngFor="let combatant of group.combatants | keyvalue" 
+        [combatant]="combatant.value"
+        (click)="showCombatPopover(combatant.key)"></standee>
+      </div>
+      <div class="attacks" 
+        *ngIf="group.type === 'monster' && group.initiative == data.combat.initiative">
+        <h3>Attacks: {{ data.monsters[group.uid].numAttacks }}</h3>
+        <div *ngFor="let attack of data.monsters[group.uid].attacks">
+          {{ attack.name }}: +{{ attack.bonus }}, {{ attack.medianDamage }} dmg, {{ attack.dice }}
+        </div>
+      </div>
+    </div>
   </ion-label>
 </ion-item>

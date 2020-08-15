@@ -1,3 +1,11 @@
 ion-label {
   margin-left: 1em;
 }
+
+.group-content {
+  display: flex;
+  align-items: flex-start;
+  div {
+    margin-right: 1em;
+  }
+}

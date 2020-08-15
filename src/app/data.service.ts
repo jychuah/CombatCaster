@@ -37,7 +37,8 @@ export class DataService {
 
   combat: Combat = {
     encounter: null,
-    groups: { }
+    groups: { },
+    initiative: 0
   }
 
   constructor(private firebase: FirebaseService,
@@ -54,6 +55,7 @@ export class DataService {
   runEncounter(uid: string) {
     this.combat.encounter = { ...(this.encounters[uid])}
     this.combat.groups = { };
+    this.combat.initiative = 0;
     this.router.navigateByUrl('/tabs/combat');
   }
 
@@ -125,7 +127,7 @@ export class DataService {
         [uid]: {...this.party[uid], currentHP: this.party[uid].maxHP},
       },
       initiative,
-      type: "player",
+      type: "party",
       portrait: this.party[uid].portrait,
       uid
     }
@@ -180,5 +182,47 @@ export class DataService {
 
   setCombatant(groupUID: string, combatantUID: string, combatant: Combatant) {
     this.combat.groups[groupUID].combatants[combatantUID] = combatant;
+  }
+
+  nextInitiative() {
+    if (Object.keys(this.combat.groups).length === 0) {
+      return;
+    }
+    let search = -20;
+    let highest = -20;
+    for (const [uid, group] of Object.entries(this.combat.groups)) {
+      if (group.initiative > highest) {
+        highest = group.initiative;
+      }
+      if (group.initiative < this.combat.initiative && group.initiative > search) {
+        search = group.initiative;
+      }
+    }
+    // If initiative didn't change, go to top of the order
+    if (search == this.combat.initiative || search == -20) {
+      search = highest;
+    }
+    this.combat.initiative = search;
+  }
+
+  previousInitiative() {
+    if (Object.keys(this.combat.groups).length === 0) {
+      return;
+    }
+    let search = 30;
+    let lowest = 30;
+    for (const [uid, group] of Object.entries(this.combat.groups)) {
+      if (group.initiative < lowest) {
+        lowest = group.initiative;
+      }
+      if (group.initiative > this.combat.initiative && group.initiative < search) {
+        search = group.initiative;
+      }
+    }
+    // If initiative didn't change, go to top of the order
+    if (search == this.combat.initiative || search == 30) {
+      search = lowest;
+    }
+    this.combat.initiative = search;
   }
 }

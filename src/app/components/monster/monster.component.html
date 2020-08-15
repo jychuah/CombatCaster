@@ -15,7 +15,7 @@
     <div>
       Attacks
       <ion-item *ngFor="let attack of data.monsters[uid].attacks">
-        {{ data.monsters[uid].name }}:
+        {{ attack.name }}:
         +{{ attack.bonus }}, {{ attack.medianDamage }} dmg, ({{ attack.dice }})
       </ion-item>  
     </div>

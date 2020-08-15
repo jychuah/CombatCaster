@@ -12,7 +12,6 @@ import { CombatPopoverComponent } from '../combat-popover/combat-popover.compone
 export class CombatGroupComponent implements OnInit {
   @Input('uid') uid: string;
   @Input('group') group: CombatGroup;
-  @Input('controls') controls: boolean = false;
   constructor(public data: DataService, public popoverController: PopoverController) { }
 
   ngOnInit() {}
