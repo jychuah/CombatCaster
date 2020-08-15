@@ -13,7 +13,6 @@ import { AngularFireModule } from '@angular/fire';
 import { firebaseConfig } from '../environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
-import { FirebaseService } from './firebase.service';
 import { DataService } from './data.service';
 import { ComponentsModule } from './components/components.module';
 import { HttpClientModule } from '@angular/common/http';
@@ -38,7 +37,6 @@ import { FormsModule } from '@angular/forms';
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    FirebaseService,
     DataService
   ],
   bootstrap: [AppComponent]

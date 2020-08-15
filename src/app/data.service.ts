@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { 
   EncounterMap,
   PlayerMap,
@@ -7,13 +7,16 @@ import {
   Monster, Encounter,
   CombatGroup,
   Combatant } from './types';
-import { FirebaseService } from './firebase.service';
 import { bobash } from './fixtures/players.fixture';
 import { kobold, goblin } from './fixtures/monsters.fixture';
 import { encounter } from './fixtures/encounters.fixture';
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { AngularFireAuth } from '@angular/fire/auth';
+import * as firebase from 'firebase/app';
+import { AngularFireDatabase } from '@angular/fire/database';
+import { Observable } from 'rxjs';
 import * as uuid from 'uuid';
 
 
@@ -35,16 +38,39 @@ export class DataService {
     'encounters001': encounter
   }
 
-  combat: Combat = {
+  public combat: Combat = {
     encounter: null,
     groups: { },
     initiative: 0
   }
 
-  constructor(private firebase: FirebaseService,
-              private http: HttpClient,
+  public user: any = null;
+
+  monsterEvents: Observable<any>;
+
+  constructor(private http: HttpClient,
               private sanitizer: DomSanitizer,
-              private router: Router) {
+              private router: Router,
+              public db: AngularFireDatabase,
+              public auth: AngularFireAuth, 
+              private zone: NgZone) {
+    this.auth.onAuthStateChanged(
+      (user) => {
+        this.zone.run(
+          () => {
+            this.user = user;
+          }
+        )
+      }
+    )
+  }
+
+  login() {
+    this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+  }
+
+  logout() {
+    this.auth.signOut();
   }
 
 
