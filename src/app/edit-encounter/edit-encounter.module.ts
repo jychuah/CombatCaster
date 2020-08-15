@@ -8,7 +8,7 @@ import { EditEncounterPageRoutingModule } from './edit-encounter-routing.module'
 
 import { EditEncounterPage } from './edit-encounter.page';
 import { ComponentsModule } from '../components/components.module';
-
+import { SortMonstersPipe } from '../sort-monsters.pipe';
 @NgModule({
   imports: [
     CommonModule,
@@ -17,6 +17,6 @@ import { ComponentsModule } from '../components/components.module';
     EditEncounterPageRoutingModule,
     ComponentsModule
   ],
-  declarations: [EditEncounterPage]
+  declarations: [EditEncounterPage, SortMonstersPipe]
 })
 export class EditEncounterPageModule {}

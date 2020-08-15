@@ -24,7 +24,7 @@
       </div>
       <ion-select interface="popover" [(ngModel)]="spawn.value.uid">
         <ion-select-option
-          *ngFor="let monster of data.monsters | keyvalue"
+          *ngFor="let monster of data.monsters | keyvalue | sortMonsters"
           [value]="monster.key">
           {{ monster.value.name }}
         </ion-select-option>

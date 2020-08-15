@@ -41,11 +41,15 @@ export class EditEncounterPage implements OnInit {
     this.cancel();
   }
 
+  firstMonsterUID() {
+    return Object.keys(this.data.monsters)[0];
+  }
+
   addMonster(groupIndex: number) {
     this.encounter.groups[groupIndex].spawns = [
       ...this.encounter.groups[groupIndex].spawns,
       {
-        uid: null,
+        uid: this.firstMonsterUID(),
         count: 0
       }
     ]
