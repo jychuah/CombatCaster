@@ -11,6 +11,7 @@ import { PlayerDeployerComponent } from './player-deployer/player-deployer.compo
 import { GroupDeployerComponent } from './group-deployer/group-deployer.component';
 import { DeployComponent } from './deploy/deploy.component';
 import { CombatGroupComponent } from './combat-group/combat-group.component';
+import { CombatPopoverComponent } from './combat-popover/combat-popover.component';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { CombatGroupComponent } from './combat-group/combat-group.component';
     GroupDeployerComponent,
     DeployComponent,
     CombatGroupComponent,
+    CombatPopoverComponent
   ],
   exports:[
     MonsterComponent,
@@ -38,7 +40,8 @@ import { CombatGroupComponent } from './combat-group/combat-group.component';
     PlayerDeployerComponent,
     GroupDeployerComponent,
     DeployComponent,
-    CombatGroupComponent
+    CombatGroupComponent,
+    CombatPopoverComponent
   ]
 })
 export class ComponentsModule {}

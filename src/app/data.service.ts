@@ -150,4 +150,33 @@ export class DataService {
       )
     }
   }
+
+  applyHealth(groupUID: string, combatantUID: string, data: any) {
+    let combatant = this.combat.groups[groupUID].combatants[combatantUID];
+    let currentHP: number = combatant.currentHP;
+    if ("heal" in data) {
+      currentHP += data["heal"];
+      if (currentHP > combatant.maxHP) {
+        currentHP = combatant.maxHP;
+      }
+    }
+    if ("damage" in data) {
+      currentHP -= data["damage"];
+      if (currentHP < 0) {
+        currentHP = 0;
+      }
+    }
+    this.setCombatant(
+      groupUID,
+      combatantUID,
+      {
+        ...combatant,
+        currentHP
+      }
+    );
+  }
+
+  setCombatant(groupUID: string, combatantUID: string, combatant: Combatant) {
+    this.combat.groups[groupUID].combatants[combatantUID] = combatant;
+  }
 }

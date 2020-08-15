@@ -1,6 +1,13 @@
-<div class="combat-group">
-  Initiative: {{ group.initiative }}
-  <div class="combatant" *ngFor="let combatant of group.combatants | keyvalue">
-    <standee [combatant]="combatant.value"></standee>
-  </div>
-</div>
+<ion-item>
+  <ion-avatar>
+  </ion-avatar>
+  <ion-label>
+    <ion-button>Focus</ion-button>
+    <div 
+      class="combatant"
+      *ngFor="let combatant of group.combatants | keyvalue"
+      (click)="showCombatPopover(combatant.key)">
+      <standee [combatant]="combatant.value"></standee>
+    </div>
+  </ion-label>
+</ion-item>

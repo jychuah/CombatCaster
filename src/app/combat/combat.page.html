@@ -7,9 +7,13 @@
 <ion-content>
   <div>
     <h1>Deployed</h1>
-    <combat-group 
-      *ngFor="let group of data.combat.groups | initiative"
-      [group]="group.value"></combat-group>
+    <ion-list class="groups">
+      <combat-group
+        *ngFor="let group of data.combat.groups | initiative" 
+        [group]="group.value"
+        [uid]="group.key">
+      </combat-group>
+    </ion-list>
   </div>
   <div>
     <h1>Staging</h1>
