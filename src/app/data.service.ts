@@ -19,6 +19,11 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import { Observable } from 'rxjs';
 import * as uuid from 'uuid';
 
+const combatInitialState: Combat = {
+  encounter: null,
+  groups: { },
+  initiative: 0
+}
 
 const statBonus = [ 0, -5, -4, -4, -3, -3, -2, -2, 
   -1, -1, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10 ];
@@ -39,14 +44,16 @@ export class DataService {
   }
 
   public combat: Combat = {
-    encounter: null,
-    groups: { },
-    initiative: 0
+    ...combatInitialState
   }
 
   public user: any = null;
 
   monsterEvents: Observable<any>;
+  partyEvents: Observable<any>;
+  encounterEvents: Observable<any>;
+  combatEvents: Observable<any>;
+
 
   constructor(private http: HttpClient,
               private sanitizer: DomSanitizer,
@@ -59,8 +66,52 @@ export class DataService {
         this.zone.run(
           () => {
             this.user = user;
+            this.subscribeToEvents();
           }
         )
+      }
+    )
+  }
+
+  subscribeToEvents() {
+    this.combatEvents = this.db.object('combat').valueChanges();
+    this.combatEvents.subscribe(
+      (change) => {
+        if (!change) {
+          this.combat = { ...combatInitialState };
+        } else {
+          this.combat = change;
+        }
+      }
+    );
+    this.monsterEvents = this.db.object('monsters').valueChanges();
+    this.monsterEvents.subscribe(
+      (change) => {
+        if (!change) {
+          this.monsters = { }
+        } else {
+          this.monsters = change;
+        }
+      }
+    )
+    this.partyEvents = this.db.object('party').valueChanges();
+    this.partyEvents.subscribe(
+      (change) => {
+        if (!change) {
+          this.party = { }
+        } else {
+          this.party = change;
+        }
+      }
+    )
+    this.encounterEvents = this.db.object('encounters').valueChanges();
+    this.encounterEvents.subscribe(
+      (change) => {
+        if (!change) {
+          this.encounters = { };
+        } else {
+          this.encounters = change;
+        }
       }
     )
   }
@@ -145,6 +196,7 @@ export class DataService {
       ...this.combat.groups,
       [ uuid.v4().substring(0, 8) ]: group
     };
+    this.saveCombat();
   }
 
   deployPlayer(uid: string, initiative: number) {
@@ -211,6 +263,7 @@ export class DataService {
 
   setCombatant(groupUID: string, combatantUID: string, combatant: Combatant) {
     this.combat.groups[groupUID].combatants[combatantUID] = combatant;
+    this.saveCombat();
   }
 
   nextInitiative() {
@@ -232,6 +285,7 @@ export class DataService {
       search = highest;
     }
     this.combat.initiative = search;
+    this.saveCombat();
   }
 
   previousInitiative() {
@@ -253,13 +307,28 @@ export class DataService {
       search = lowest;
     }
     this.combat.initiative = search;
+    this.saveCombat();
+  }
+
+  deleteMonster(uid: string) {
+    const itemRef = this.db.object(`monsters/${uid}`);
+    itemRef.remove();
   }
 
   saveMonster(uid: string, monster: Monster) {
     this.monsters[uid] = { ...monster }
+    const itemRef = this.db.object(`monsters/${uid}`);
+    itemRef.set(monster);
   }
 
   saveEncounter(uid: string, encounter: Encounter) {
     this.encounters[uid] = { ...encounter };
+    const itemRef = this.db.object(`encounters/${uid}`);
+    itemRef.set(encounter);
+  }
+
+  saveCombat() {
+    const itemRef = this.db.object(`combat`);
+    itemRef.set(this.combat);
   }
 }

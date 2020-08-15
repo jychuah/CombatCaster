@@ -18,6 +18,10 @@ export class MonsterComponent implements OnInit {
   edit() {
     this.router.navigateByUrl(`/edit-monster/${this.uid}`);
   }
+
+  delete() {
+    this.data.deleteMonster(this.uid);
+  }
   
   toggleCollapse() {
     this.collapse = !this.collapse;
