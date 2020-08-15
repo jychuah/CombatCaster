@@ -104,9 +104,9 @@ export class DataService {
     )
   }
 
-  getPortrait(combatant: Combatant) : SafeUrl {
-    if (combatant.portrait) {
-      return this.sanitizer.bypassSecurityTrustUrl(combatant.portrait);
+  getPortrait(portrait: string) : SafeUrl {
+    if (portrait) {
+      return this.sanitizer.bypassSecurityTrustUrl(portrait);
     } else {
       return null;
     }
@@ -126,6 +126,7 @@ export class DataService {
       },
       initiative,
       type: "player",
+      portrait: this.party[uid].portrait,
       uid
     }
     this.insertCombatGroup(group);
@@ -145,6 +146,7 @@ export class DataService {
           combatants,
           initiative,
           type: "monster",
+          portrait: null,
           uid
         }
       )

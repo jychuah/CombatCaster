@@ -27,6 +27,7 @@ export interface CombatGroup {
     [uid: string]: Combatant
   },
   initiative: number,
+  portrait: string,
   type: string,
   uid: string
 }

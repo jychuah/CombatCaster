@@ -1,13 +1,12 @@
 <ion-item>
   <ion-avatar>
+    <img [src]="data.getPortrait(group.portrait)">
   </ion-avatar>
   <ion-label>
     <ion-button>Focus</ion-button>
-    <div 
-      class="combatant"
-      *ngFor="let combatant of group.combatants | keyvalue"
-      (click)="showCombatPopover(combatant.key)">
-      <standee [combatant]="combatant.value"></standee>
-    </div>
+    <standee
+      *ngFor="let combatant of group.combatants | keyvalue" 
+      [combatant]="combatant.value"
+      (click)="showCombatPopover(combatant.key)"></standee>
   </ion-label>
 </ion-item>
