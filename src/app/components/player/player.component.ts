@@ -12,7 +12,7 @@ export class PlayerComponent implements OnInit {
   ngOnInit() { }
 
   sync() {
-    this.data.syncPlayer(this.uid);
+    this.data.syncPlayer(this.uid, this.data.party[this.uid].url);
   }
 
 }

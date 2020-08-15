@@ -1,0 +1,11 @@
+<ion-label stacked>Player</ion-label>
+<ion-select [(ngModel)]="uid">
+  <ion-select-option 
+    *ngFor="let user of data.users | keyvalue" [value]="user.key">
+    {{ user.value.displayName }}
+  </ion-select-option>
+</ion-select>
+<ion-label stacked>DnD Beyond Character ID</ion-label>
+<ion-input type="number" [(ngModel)]="url"></ion-input>
+<ion-button (click)="close()" color="secondary">Close</ion-button>
+<ion-button (click)="sync()" [disabled]="!url || !uid">Sync</ion-button>

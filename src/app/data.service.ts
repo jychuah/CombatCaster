@@ -49,11 +49,15 @@ export class DataService {
 
   public user: any = null;
 
+  public role: string = null;
+
+  public users: any = null;
+
   monsterEvents: Observable<any>;
   partyEvents: Observable<any>;
   encounterEvents: Observable<any>;
   combatEvents: Observable<any>;
-
+  roleEvents: Observable<any>;
 
   constructor(private http: HttpClient,
               private sanitizer: DomSanitizer,
@@ -66,11 +70,17 @@ export class DataService {
         this.zone.run(
           () => {
             this.user = user;
+            this.updateUser();
             this.subscribeToEvents();
           }
         )
       }
     )
+  }
+
+  updateUser() {
+    const itemRef = this.db.object(`users/${this.user.uid}`);
+    itemRef.update({ email: this.user.email, displayName: this.user.displayName });
   }
 
   subscribeToEvents() {
@@ -114,6 +124,17 @@ export class DataService {
         }
       }
     )
+    this.roleEvents = this.db.object('users').valueChanges();
+    this.roleEvents.subscribe(
+      (users) => {
+        if (!users) return;
+        this.users = users;
+        if (this.users[this.user.uid] === 'dm' ||
+            this.users[this.user.uid] === 'player') {
+          this.updateUser();
+        }
+      }
+    )
   }
 
   login() {
@@ -127,6 +148,8 @@ export class DataService {
 
   replacePlayer(uid: string, player: Player) {
     this.party[uid] = { ...player };
+    const itemRef = this.db.object(`party/${uid}`);
+    itemRef.set(player);
   }
 
   runEncounter(uid: string) {
@@ -136,8 +159,15 @@ export class DataService {
     this.router.navigateByUrl('/tabs/combat');
   }
 
-  syncPlayer(uid: string) {
-    let player: Player = { ...this.party[uid] };
+  syncPlayer(uid: string, url: string) {
+    let player: Player = null;
+    if (!this.party[uid]) {
+      player = {
+        url
+      }
+    } else {
+      player = { ...this.party[uid] };
+    }
     this.http.get("https://cors-anywhere.herokuapp.com/" + player.url).toPromise().then(
       (response: any) => {
         let data = response.data;
