@@ -8,7 +8,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
   <div>
     <h1>Deployed</h1>
     <ion-list class="groups">
@@ -21,17 +21,15 @@
   </div>
   <div>
     <h1>Staging</h1>
-    <div>
-      <h3>Party</h3>
-      <player-deployer 
-        *ngFor="let player of data.party | keyvalue" 
-        [uid]="player.key"></player-deployer>
-      <div *ngIf="data.combat.encounter">
-        <h3>Encounter: {{ data.combat.encounter.name }}</h3>
-        <div *ngFor="let group of data.combat.encounter.groups | keyvalue; index as index">
-          <group-deployer [spawngroup]="group.value" [index]="index"></group-deployer>
-        </div>
+    <div *ngIf="data.combat.encounter">
+      <h3>Encounter: {{ data.combat.encounter.name }}</h3>
+      <div *ngFor="let group of data.combat.encounter.groups | keyvalue; index as index">
+        <group-deployer [spawngroup]="group.value" [index]="index"></group-deployer>
       </div>
-   </div>
+    </div>
+    <h3>Party</h3>
+    <player-deployer 
+      *ngFor="let player of data.party | keyvalue" 
+      [uid]="player.key"></player-deployer>
   </div>
 </ion-content>
