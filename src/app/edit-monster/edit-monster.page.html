@@ -35,7 +35,7 @@
       <ion-label stacked>Dice</ion-label>
       <ion-input type="text" [(ngModel)]="monster.attacks[index].dice"></ion-input>
     </div>
-    <ion-button>Delete</ion-button>
+    <ion-button (click)="deleteAttack(index)">Delete</ion-button>
   </div>
   <ion-button (click)="newAttack()">New Attack</ion-button>
   <ion-input type="file" (change)="uploadChange($event)"></ion-input>

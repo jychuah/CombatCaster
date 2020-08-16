@@ -29,15 +29,24 @@ export class EditMonsterPage implements OnInit {
   }
 
   newAttack() {
+    const newAttack = {
+      name: 'New Attack',
+      bonus: 0,
+      medianDamage: 5,
+      dice: '1d6+2'
+    }
+    if (!this.monster.attacks) {
+      this.monster.attacks = [ newAttack ]
+      return;
+    }
     this.monster.attacks = [
       ...this.monster.attacks,
-      {
-        name: 'New Attack',
-        bonus: 0,
-        medianDamage: 5,
-        dice: '1d6+2'
-      }
+      newAttack
     ]
+  }
+
+  deleteAttack(index: number) {
+    this.monster.attacks.splice(index, 1);
   }
 
   cancel() {
