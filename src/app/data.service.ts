@@ -94,6 +94,11 @@ export class DataService {
           if (JSON.stringify(this.combat.encounter) != JSON.stringify(change.encounter)) {
             this.combat.encounter = change.encounter;
           }
+          for (const [groupUID, group] of Object.entries(this.combat.groups)) {
+            if (!(groupUID in change.groups)) {
+              delete this.combat.groups[groupUID];
+            }
+          }
         }
       }
     );

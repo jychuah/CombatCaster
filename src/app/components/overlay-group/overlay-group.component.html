@@ -3,12 +3,10 @@
     <img [src]="safeUrl" [class]="initiative() ? 'initiative' : 'normal'">
   </ion-avatar>
   <div class="group-content">
-    <div
+    <standee
       class="standees"
-      *ngFor="let combatant of group.combatants | keyvalue">
-      <standee
-        [bars]="true"
-        [combatant]="combatant.value"></standee>
-    </div>
+      *ngFor="let combatant of group.combatants | keyvalue"
+      [bars]="true"
+      [combatant]="combatant.value"></standee>
   </div>
 </div>
