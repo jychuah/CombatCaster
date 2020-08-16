@@ -6,3 +6,11 @@ ion-card-title {
     margin-left: 1em;
   }
 }
+
+.controls {
+  display: flex;
+  align-items: center;
+  ion-avatar {
+    margin-right: 1em;
+  }
+}

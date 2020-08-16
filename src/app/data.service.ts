@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase/app';
 import { AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
 import * as uuid from 'uuid';
 
@@ -53,6 +54,12 @@ export class DataService {
 
   public users: any = null;
 
+  public uploadTask: AngularFireUploadTask = null;
+  public uploadPercentage: number = 0;
+  public uploadPercent: Observable<number>;
+
+  public imageCache: any = { };
+
   monsterEvents: Observable<any>;
   partyEvents: Observable<any>;
   encounterEvents: Observable<any>;
@@ -64,7 +71,8 @@ export class DataService {
               private router: Router,
               public db: AngularFireDatabase,
               public auth: AngularFireAuth, 
-              private zone: NgZone) {
+              private zone: NgZone,
+              private storage: AngularFireStorage) {
     this.auth.onAuthStateChanged(
       (user) => {
         this.zone.run(
@@ -213,12 +221,13 @@ export class DataService {
     )
   }
 
-  getPortrait(portrait: string) : SafeUrl {
-    if (portrait) {
-      return this.sanitizer.bypassSecurityTrustUrl(portrait);
-    } else {
-      return null;
+  getPortrait(portrait: string) {
+    if (!portrait) return;
+    if (portrait in this.imageCache) {
+      return this.imageCache[portrait];
     }
+    this.imageCache[portrait] = this.sanitizer.bypassSecurityTrustUrl(portrait);
+    return this.imageCache[portrait];
   }
 
   insertCombatGroup(group: CombatGroup) {
@@ -258,7 +267,7 @@ export class DataService {
             combatants,
             initiative,
             type: "monster",
-            portrait: null,
+            portrait: this.monsters[spawn.uid].portrait,
             uid: spawn.uid
           }
         )
@@ -289,6 +298,22 @@ export class DataService {
         currentHP
       }
     );
+  }
+
+  removeCombatant(groupUID: string, combatantUID: string) {
+    this.zone.run(
+      () => {
+        delete this.combat.groups[groupUID].combatants[combatantUID];
+        this.combat.groups[groupUID].combatants = {
+          ...this.combat.groups[groupUID].combatants
+        }
+        if (Object.keys(this.combat.groups[groupUID].combatants).length === 0) {
+          delete this.combat.groups[groupUID];
+          this.combat.groups = { ...this.combat.groups };
+        }
+      }
+    )
+    this.saveCombat();
   }
 
   setCombatant(groupUID: string, combatantUID: string, combatant: Combatant) {
@@ -360,5 +385,33 @@ export class DataService {
   saveCombat() {
     const itemRef = this.db.object(`combat`);
     itemRef.set(this.combat);
+  }
+
+  upload(file: any, uid: string) {
+    const fileRef = this.storage.ref(uid);
+    this.uploadTask = this.storage.upload(uid, file);
+    this.uploadPercent = this.uploadTask.percentageChanges();
+
+    this.uploadPercent.subscribe(
+      (event) => {
+        this.uploadPercentage = event / 100.0;
+      },
+      (error) => {
+        console.log("upload error", error);
+      },
+      () => {
+        const downloadEvents = fileRef.getDownloadURL();
+        downloadEvents.toPromise().then(
+          (url) => {
+            this.saveMonster(uid, 
+              {
+                ...this.monsters[uid],
+                portrait: url
+              }
+            )
+          }
+        );
+      }
+    );
   }
 }

@@ -7,7 +7,8 @@ import { DataService } from '../data.service';
 })
 export class CombatPage implements OnInit {
 
-  constructor(public data: DataService) { }
+  constructor(public data: DataService) {
+  }
 
   ngOnInit() {
   }

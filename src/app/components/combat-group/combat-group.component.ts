@@ -3,6 +3,7 @@ import { CombatGroup } from 'src/app/types';
 import { DataService } from 'src/app/data.service';
 import { PopoverController } from '@ionic/angular';
 import { CombatPopoverComponent } from '../combat-popover/combat-popover.component';
+import { SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'combat-group',
@@ -12,9 +13,12 @@ import { CombatPopoverComponent } from '../combat-popover/combat-popover.compone
 export class CombatGroupComponent implements OnInit {
   @Input('uid') uid: string;
   @Input('group') group: CombatGroup;
-  constructor(public data: DataService, public popoverController: PopoverController) { }
 
-  ngOnInit() {}
+  constructor(public data: DataService, public popoverController: PopoverController) {
+  }
+
+  ngOnInit() {
+  }
 
   async showCombatPopover(combatantUID: string) {
     const popover = await this.popoverController.create(
@@ -26,6 +30,10 @@ export class CombatGroupComponent implements OnInit {
     let result = await popover.onDidDismiss();
     if ("close" in result.data) return;
     this.data.applyHealth(this.uid, combatantUID, result.data);
+  }
+
+  remove(uid: string) {
+    this.data.removeCombatant(this.uid, uid);
   }
 
 }

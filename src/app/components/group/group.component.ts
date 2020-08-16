@@ -10,7 +10,8 @@ import { DataService } from '../../data.service';
 export class GroupComponent implements OnInit {
   @Input('spawngroup') spawnGroup: SpawnGroup;
 
-  constructor(public data: DataService) { }
+  constructor(public data: DataService) {
+  }
 
   ngOnInit() {}
 

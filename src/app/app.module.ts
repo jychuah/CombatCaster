@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
 import { AngularFireModule } from '@angular/fire';
 import { firebaseConfig } from '../environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 
 import { DataService } from './data.service';
 import { ComponentsModule } from './components/components.module';
@@ -31,7 +32,8 @@ import { FormsModule } from '@angular/forms';
     AngularFireAuthModule,
     ComponentsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    AngularFireStorageModule
   ],
   providers: [
     StatusBar,

@@ -7,8 +7,13 @@
     </ion-card-title>
   </ion-card-header>
   <ion-card-content *ngIf="!collapse">
-    <ion-button (click)="edit()">Edit</ion-button>
-    <ion-button (click)="delete()" color="danger">Delete</ion-button>
+    <div class="controls">
+      <ion-avatar>
+        <img [src]="data.getPortrait(data.monsters[uid].portrait)">
+      </ion-avatar>
+      <ion-button (click)="edit()">Edit</ion-button>
+      <ion-button (click)="delete()" color="danger">Delete</ion-button>  
+    </div>
     <div>
       Stats
       <ion-item>

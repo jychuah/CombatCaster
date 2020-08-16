@@ -49,4 +49,8 @@ export class EditMonsterPage implements OnInit {
     this.cancel();
   }
 
+  uploadChange($event) {
+    this.data.upload($event.target.files[0], this.uid);
+  }
+
 }

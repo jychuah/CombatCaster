@@ -7,6 +7,7 @@ export class InitiativePipe implements PipeTransform {
 
   transform(groups: unknown, ...args: unknown[]): unknown {
     let result = [];
+    if (!groups) return [];
     Object.keys(groups).forEach(
       (key) => {
         let i = 0;
