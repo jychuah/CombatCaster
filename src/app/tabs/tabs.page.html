@@ -6,12 +6,12 @@
       <ion-label>Combat</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="encounters">
+    <ion-tab-button tab="encounters" *ngIf="data.isDm()">
       <ion-icon name="ellipse"></ion-icon>
       <ion-label>Encounters</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="monsters">
+    <ion-tab-button tab="monsters" *ngIf="data.isDm()">
       <ion-icon name="square"></ion-icon>
       <ion-label>Monsters</ion-label>
     </ion-tab-button>
@@ -21,7 +21,7 @@
       <ion-label>Party</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="overlay">
+    <ion-tab-button tab="overlay" *ngIf="data.isDm()">
       <ion-icon name="square"></ion-icon>
       <ion-label>Overlay</ion-label>
     </ion-tab-button>

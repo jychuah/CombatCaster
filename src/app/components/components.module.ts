@@ -13,6 +13,8 @@ import { DeployComponent } from './deploy/deploy.component';
 import { CombatGroupComponent } from './combat-group/combat-group.component';
 import { CombatPopoverComponent } from './combat-popover/combat-popover.component';
 import { PlayerSyncComponent } from './player-sync/player-sync.component';
+import { HealthBarComponent } from './health-bar/health-bar.component';
+import { PipPipe } from 'src/app/pip.pipe';
 
 @NgModule({
   imports: [
@@ -31,7 +33,9 @@ import { PlayerSyncComponent } from './player-sync/player-sync.component';
     DeployComponent,
     CombatGroupComponent,
     CombatPopoverComponent,
-    PlayerSyncComponent
+    PlayerSyncComponent,
+    HealthBarComponent,
+    PipPipe
   ],
   exports:[
     MonsterComponent,
@@ -44,7 +48,8 @@ import { PlayerSyncComponent } from './player-sync/player-sync.component';
     DeployComponent,
     CombatGroupComponent,
     CombatPopoverComponent,
-    PlayerSyncComponent
+    PlayerSyncComponent,
+    HealthBarComponent
   ]
 })
 export class ComponentsModule {}

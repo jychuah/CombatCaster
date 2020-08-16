@@ -6,6 +6,7 @@ import { DataService } from '../data.service';
   styleUrls: ['./combat.page.scss'],
 })
 export class CombatPage implements OnInit {
+  collapseStaging: boolean = false;
 
   constructor(public data: DataService) {
   }
@@ -13,4 +14,7 @@ export class CombatPage implements OnInit {
   ngOnInit() {
   }
 
+  toggleCollapse() {
+    this.collapseStaging = !this.collapseStaging;
+  }
 }

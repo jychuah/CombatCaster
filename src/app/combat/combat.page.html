@@ -20,16 +20,22 @@
     </ion-list>
   </div>
   <div>
-    <h1>Staging</h1>
-    <div *ngIf="data.combat.encounter">
-      <h3>Encounter: {{ data.combat.encounter.name }}</h3>
-      <div *ngFor="let group of data.combat.encounter.groups; index as index">
-        <group-deployer [spawngroup]="group" [index]="index"></group-deployer>
-      </div>
+    <div class="staging">
+      <h1>Staging</h1>
+      <ion-icon *ngIf="collapseStaging" name="chevron-down-outline" (click)="toggleCollapse()"></ion-icon>
+      <ion-icon *ngIf="!collapseStaging" name="chevron-up-outline" (click)="toggleCollapse()"></ion-icon>
     </div>
-    <h3>Party</h3>
-    <player-deployer 
-      *ngFor="let player of data.party | keyvalue" 
-      [uid]="player.key"></player-deployer>
+    <div *ngIf="!collapseStaging">
+      <div *ngIf="data.combat.encounter && data.isDm()">
+        <h3>Encounter: {{ data.combat.encounter.name }}</h3>
+        <div *ngFor="let group of data.combat.encounter.groups; index as index">
+          <group-deployer [spawngroup]="group" [index]="index"></group-deployer>
+        </div>
+      </div>
+      <h3>Party</h3>
+      <player-deployer 
+        *ngFor="let player of data.party | keyvalue" 
+        [uid]="player.key"></player-deployer>
+    </div>
   </div>
 </ion-content>

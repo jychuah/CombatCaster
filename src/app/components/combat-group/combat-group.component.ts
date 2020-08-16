@@ -36,6 +36,15 @@ export class CombatGroupComponent implements OnInit {
     this.data.applyHealth(this.uid, combatantUID, result.data);
   }
 
+  initiative() {
+    return this.group.initiative == this.data.combat.initiative
+  }
+
+  showAttacks() {
+    return this.data.monsters && this.data.monsters[this.group.uid] && 
+      this.group.type === 'monster' && this.initiative();
+  }
+
   remove(uid: string) {
     this.data.removeCombatant(this.uid, uid);
   }

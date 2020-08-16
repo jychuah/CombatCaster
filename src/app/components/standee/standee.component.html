@@ -1,10 +1,13 @@
 <div class="standee">
-  <h3>{{ combatant.name }}</h3>
-  <p>
-    AC {{ combatant.ac }}
-  </p>
+  <h3 class="name">{{ combatant.name }}</h3>
+  <div class="stat-line">
+    <ion-icon name="shield-outline"></ion-icon>
+    <div class="ac-stat">{{ combatant.ac }}</div>
+    <health-bar [maxHP]="combatant.maxHP" [currentHP]="combatant.currentHP"></health-bar>
+  </div>
   <p>
     <span *ngIf="combatant.currentHP != null">{{ combatant.currentHP }} / </span>
     {{ combatant.maxHP }} HP
   </p>
+  
 </div>

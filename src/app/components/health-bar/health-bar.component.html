@@ -1,0 +1,6 @@
+<div class="health-bar">
+  <div *ngFor="let bar of getFullBars() | pip" class="bar full">
+  </div>
+  <div *ngFor="let bar of getEmptyBars() | pip" class="bar empty">
+  </div>
+</div>

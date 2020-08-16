@@ -1,6 +1,6 @@
 <ion-item>
   <ion-avatar>
-    <img [src]="safeUrl">
+    <img [src]="safeUrl" [class]="initiative() ? 'initiative' : 'normal'">
   </ion-avatar>
   <ion-label>
     <div class="group-content">
@@ -10,10 +10,10 @@
         <standee
           [combatant]="combatant.value"
           (click)="showCombatPopover(combatant.key)"></standee>
-        <ion-button (click)="remove(combatant.key)">Remove</ion-button>
+        <ion-button *ngIf="data.isDm()" (click)="remove(combatant.key)">Remove</ion-button>
       </div>
       <div class="attacks" 
-        *ngIf="group.type === 'monster' && group.initiative == data.combat.initiative">
+        *ngIf="showAttacks()">
         <h3>Attacks: {{ data.monsters[group.uid].numAttacks }}</h3>
         <div *ngFor="let attack of data.monsters[group.uid].attacks">
           {{ attack.name }}: +{{ attack.bonus }}, {{ attack.medianDamage }} dmg, {{ attack.dice }}

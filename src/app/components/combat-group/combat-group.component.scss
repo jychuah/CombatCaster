@@ -13,5 +13,10 @@ ion-label {
 ion-avatar {
   width: 4em;
   height: 4em;
-  border: 3px solid #FFFFFF88;
+  .normal {
+    border: 3px solid #FFFFFF88;
+  }  
+  .initiative {
+    border: 3px solid #FFFFFFCC;
+  }
 }

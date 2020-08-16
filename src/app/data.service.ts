@@ -7,9 +7,6 @@ import {
   Monster, Encounter,
   CombatGroup,
   Combatant } from './types';
-import { bobash } from './fixtures/players.fixture';
-import { kobold, goblin } from './fixtures/monsters.fixture';
-import { encounter } from './fixtures/encounters.fixture';
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -33,32 +30,17 @@ const statBonus = [ 0, -5, -4, -4, -3, -3, -2, -2,
   providedIn: 'root'
 })
 export class DataService {
-  public party: PlayerMap = {
-    'zHMuP33p9SfmILdQHNiy9oLBor93': bobash,
-  }
-  public monsters: MonsterMap = {
-    'kobold001': kobold,
-    'goblin001': goblin,
-  }
-  public encounters: EncounterMap = {
-    'encounters001': encounter
-  }
-
-  public combat: Combat = {
-    ...combatInitialState
-  }
+  public party: PlayerMap = { }
+  public monsters: MonsterMap = { }
+  public encounters: EncounterMap = { }
+  public combat: Combat = { ...combatInitialState }
 
   public user: any = null;
-
-  public role: string = null;
-
   public users: any = null;
 
   public uploadTask: AngularFireUploadTask = null;
   public uploadPercentage: number = 0;
   public uploadPercent: Observable<number>;
-
-  public imageCache: any = { };
 
   monsterEvents: Observable<any>;
   partyEvents: Observable<any>;
@@ -78,7 +60,6 @@ export class DataService {
         this.zone.run(
           () => {
             this.user = user;
-            this.updateUser();
             this.subscribeToEvents();
           }
         )
@@ -86,9 +67,9 @@ export class DataService {
     )
   }
 
-  updateUser() {
+  updateUser(role: string) {
     const itemRef = this.db.object(`users/${this.user.uid}`);
-    itemRef.update({ email: this.user.email, displayName: this.user.displayName });
+    itemRef.update({ email: this.user.email, displayName: this.user.displayName, role: role });
   }
 
   subscribeToEvents() {
@@ -153,7 +134,7 @@ export class DataService {
         this.users = users;
         if (this.users[this.user.uid] === 'dm' ||
             this.users[this.user.uid] === 'player') {
-          this.updateUser();
+          this.updateUser(this.users[this.user.uid]);
         }
       }
     )
@@ -250,7 +231,7 @@ export class DataService {
   deployPlayer(uid: string, initiative: number) {
     let group: CombatGroup = {
       combatants: {
-        [uid]: {...this.party[uid], currentHP: this.party[uid].maxHP},
+        [uid]: {...this.party[uid]},
       },
       initiative,
       type: "party",
@@ -422,5 +403,10 @@ export class DataService {
         );
       }
     );
+  }
+
+  isDm() {
+    if (!this.users) return false;
+    return this.users[this.user.uid].role === 'dm';
   }
 }
