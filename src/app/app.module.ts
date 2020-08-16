@@ -18,6 +18,7 @@ import { DataService } from './data.service';
 import { ComponentsModule } from './components/components.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { CombatPageModule } from './combat/combat.module';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { FormsModule } from '@angular/forms';
     ComponentsModule,
     HttpClientModule,
     FormsModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    CombatPageModule
   ],
   providers: [
     StatusBar,

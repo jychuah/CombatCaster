@@ -7,13 +7,17 @@ import { IonicModule } from '@ionic/angular';
 import { OverlayPageRoutingModule } from './overlay-routing.module';
 
 import { OverlayPage } from './overlay.page';
+import { PipesModule } from '../pipes/pipes.module';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    OverlayPageRoutingModule
+    OverlayPageRoutingModule,
+    PipesModule,
+    ComponentsModule
   ],
   declarations: [OverlayPage]
 })

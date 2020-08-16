@@ -1,5 +1,11 @@
+.overlay-group {
+  display: flex;
+  margin-top: 1em;
+  align-items: center;
+}
+
 .highlight {
-  transform: scale(1.05, 1.05);
+  transform: scale(1.2, 1.2);
 }
 
 ion-label {
@@ -7,8 +13,14 @@ ion-label {
 }
 
 .group-content {
+  background-color: #000000;
+  padding-left: 1em;
+  padding-right: 1em;
+  margin-left: 1em;
   display: flex;
   align-items: flex-start;
+  border: 0.25em solid white;
+  border-radius: 1em;
   div {
     margin-right: 1em;
   }

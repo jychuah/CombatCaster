@@ -1,0 +1,15 @@
+<div [class]="initiative() ? 'highlight overlay-group': 'overlay-group'">
+  <ion-avatar>
+    <img [src]="safeUrl" [class]="initiative() ? 'initiative' : 'normal'">
+  </ion-avatar>
+  <div class="group-content">
+    <div
+      class="standees"
+      *ngFor="let combatant of group.combatants | keyvalue">
+      <standee
+        [bars]="true"
+        [combatant]="combatant.value"
+        (click)="showCombatPopover(combatant.key)"></standee>
+    </div>
+  </div>
+</div>

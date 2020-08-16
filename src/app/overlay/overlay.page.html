@@ -1,9 +1,16 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>overlay</ion-title>
+    <ion-title>Overlay</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <div class="overlay-container">
+    <overlay-group
+      *ngFor="let group of data.combat.groups | initiative" 
+      [group]="group.value"
+      [uid]="group.key">
+    </overlay-group>
+  </div>
 
 </ion-content>

@@ -14,13 +14,15 @@ import { CombatGroupComponent } from './combat-group/combat-group.component';
 import { CombatPopoverComponent } from './combat-popover/combat-popover.component';
 import { PlayerSyncComponent } from './player-sync/player-sync.component';
 import { HealthBarComponent } from './health-bar/health-bar.component';
-import { PipPipe } from 'src/app/pip.pipe';
+import { OverlayGroupComponent } from './overlay-group/overlay-group.component';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    PipesModule
   ],
   declarations: [
     MonsterComponent,
@@ -35,7 +37,7 @@ import { PipPipe } from 'src/app/pip.pipe';
     CombatPopoverComponent,
     PlayerSyncComponent,
     HealthBarComponent,
-    PipPipe
+    OverlayGroupComponent,
   ],
   exports:[
     MonsterComponent,
@@ -49,7 +51,8 @@ import { PipPipe } from 'src/app/pip.pipe';
     CombatGroupComponent,
     CombatPopoverComponent,
     PlayerSyncComponent,
-    HealthBarComponent
+    HealthBarComponent,
+    OverlayGroupComponent
   ]
 })
 export class ComponentsModule {}

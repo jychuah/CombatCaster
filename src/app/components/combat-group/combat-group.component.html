@@ -1,4 +1,4 @@
-<ion-item>
+<ion-item [class]="initiative() ? 'highlight': ''">
   <ion-avatar>
     <img [src]="safeUrl" [class]="initiative() ? 'initiative' : 'normal'">
   </ion-avatar>
@@ -8,6 +8,7 @@
         class="standees"
         *ngFor="let combatant of group.combatants | keyvalue">
         <standee
+          [bars]="!data.isDm()"
           [combatant]="combatant.value"
           (click)="showCombatPopover(combatant.key)"></standee>
         <ion-button *ngIf="data.isDm()" (click)="remove(combatant.key)">Remove</ion-button>

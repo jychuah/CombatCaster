@@ -1,0 +1,12 @@
+.overlay-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  overlay-group {
+    width: 20em;
+  }
+}
+
+ion-content {
+  --background: #00FF00;
+}

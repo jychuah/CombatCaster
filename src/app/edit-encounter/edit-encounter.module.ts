@@ -8,15 +8,16 @@ import { EditEncounterPageRoutingModule } from './edit-encounter-routing.module'
 
 import { EditEncounterPage } from './edit-encounter.page';
 import { ComponentsModule } from '../components/components.module';
-import { SortMonstersPipe } from '../sort-monsters.pipe';
+import { PipesModule } from '../pipes/pipes.module';
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     EditEncounterPageRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    PipesModule
   ],
-  declarations: [EditEncounterPage, SortMonstersPipe]
+  declarations: [EditEncounterPage]
 })
 export class EditEncounterPageModule {}

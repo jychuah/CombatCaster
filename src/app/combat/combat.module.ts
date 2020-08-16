@@ -8,7 +8,7 @@ import { CombatPageRoutingModule } from './combat-routing.module';
 
 import { CombatPage } from './combat.page';
 import { ComponentsModule } from '../components/components.module';
-import { InitiativePipe } from '../initiative.pipe';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
   imports: [
@@ -17,7 +17,8 @@ import { InitiativePipe } from '../initiative.pipe';
     IonicModule,
     CombatPageRoutingModule,
     ComponentsModule,
+    PipesModule
   ],
-  declarations: [CombatPage, InitiativePipe]
+  declarations: [CombatPage]
 })
 export class CombatPageModule {}
