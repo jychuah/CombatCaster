@@ -94,17 +94,31 @@ export class DataService {
   subscribeToEvents() {
     this.combatEvents = this.db.object('combat').valueChanges();
     this.combatEvents.subscribe(
-      (change) => {
+      (change: Combat) => {
         if (!change) {
           this.combat = { ...combatInitialState };
         } else {
-          this.combat = change;
+          if (this.combat.initiative != change.initiative) {
+            this.combat.initiative = change.initiative;
+          }
+          for (const [groupUID, group] of Object.entries(change.groups)) {
+            if (!(groupUID in this.combat.groups)) {
+              this.combat.groups = { ...this.combat.groups, [groupUID]: group};
+            } else {
+              if (JSON.stringify(this.combat.groups[groupUID]) !== JSON.stringify(group)) {
+                this.combat.groups = {...this.combat.groups, [groupUID]: group};
+              }
+            }
+          }
+          if (JSON.stringify(this.combat.encounter) != JSON.stringify(change.encounter)) {
+            this.combat.encounter = change.encounter;
+          }
         }
       }
     );
     this.monsterEvents = this.db.object('monsters').valueChanges();
     this.monsterEvents.subscribe(
-      (change) => {
+      (change: MonsterMap) => {
         if (!change) {
           this.monsters = { }
         } else {
@@ -222,12 +236,7 @@ export class DataService {
   }
 
   getPortrait(portrait: string) {
-    if (!portrait) return;
-    if (portrait in this.imageCache) {
-      return this.imageCache[portrait];
-    }
-    this.imageCache[portrait] = this.sanitizer.bypassSecurityTrustUrl(portrait);
-    return this.imageCache[portrait];
+    return this.sanitizer.bypassSecurityTrustResourceUrl(portrait);
   }
 
   insertCombatGroup(group: CombatGroup) {

@@ -13,11 +13,15 @@ import { SafeUrl } from '@angular/platform-browser';
 export class CombatGroupComponent implements OnInit {
   @Input('uid') uid: string;
   @Input('group') group: CombatGroup;
+  safeUrl: SafeUrl = null;
 
   constructor(public data: DataService, public popoverController: PopoverController) {
   }
 
   ngOnInit() {
+    if (!this.safeUrl) {
+      this.safeUrl = this.data.getPortrait(this.group.portrait);
+    }
   }
 
   async showCombatPopover(combatantUID: string) {
