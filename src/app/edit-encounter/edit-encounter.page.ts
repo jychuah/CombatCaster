@@ -16,7 +16,7 @@ export class EditEncounterPage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private data: DataService,
+    public data: DataService,
     public router: Router) {
     this.route.params.subscribe(
       params => {

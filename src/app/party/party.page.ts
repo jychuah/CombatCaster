@@ -15,7 +15,7 @@ export class PartyPage implements OnInit {
   ngOnInit() {
   }
 
-  async showSyncPopover(combatantUID: string) {
+  async showSyncPopover() {
     const popover = await this.popoverController.create(
       {
         component: PlayerSyncComponent,
@@ -23,7 +23,6 @@ export class PartyPage implements OnInit {
     )
     await popover.present();
     let result = await popover.onDidDismiss();
-    console.log(result);
     if ("close" in result.data) return;
     this.data.syncPlayer(result.data.uid, result.data.url);
   }

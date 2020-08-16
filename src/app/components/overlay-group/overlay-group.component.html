@@ -8,8 +8,7 @@
       *ngFor="let combatant of group.combatants | keyvalue">
       <standee
         [bars]="true"
-        [combatant]="combatant.value"
-        (click)="showCombatPopover(combatant.key)"></standee>
+        [combatant]="combatant.value"></standee>
     </div>
   </div>
 </div>

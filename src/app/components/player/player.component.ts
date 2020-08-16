@@ -7,7 +7,7 @@ import { DataService } from '../../data.service';
 })
 export class PlayerComponent implements OnInit {
   @Input('uid') uid: string;
-  constructor(private data: DataService) { }
+  constructor(public data: DataService) { }
 
   ngOnInit() { }
 
