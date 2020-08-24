@@ -33,9 +33,11 @@
         </div>
       </div>
       <h3>Party</h3>
-      <player-deployer 
-        *ngFor="let player of data.party | keyvalue" 
-        [uid]="player.key"></player-deployer>
+      <div class="player-deployers">
+        <player-deployer 
+          *ngFor="let player of data.party | keyvalue" 
+          [uid]="player.key"></player-deployer>
+      </div>
     </div>
   </div>
 </ion-content>

@@ -234,6 +234,17 @@ export class DataService {
     this.saveCombat();
   }
 
+  findInitiative(uid: string) {
+    let playerGroups = Object.values(this.combat.groups).filter(group => group.type === 'party');
+    let player = playerGroups.find(
+      playerGroup => Object.keys(playerGroup.combatants).some(
+        combatantUID => combatantUID === uid
+      )
+    );
+    if (!player) return null;
+    return player.initiative;
+  }
+
   deployPlayer(uid: string, initiative: number) {
     let group: CombatGroup = {
       combatants: {

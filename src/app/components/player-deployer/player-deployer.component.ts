@@ -16,4 +16,12 @@ export class PlayerDeployerComponent implements OnInit {
   deploy($event) {
     this.data.deployPlayer(this.uid, $event.initiative);
   }
+
+  isPlayerDeployed() {
+    return this.data.findInitiative(this.uid) != null;
+  }
+
+  findInitiative() {
+    return this.data.findInitiative(this.uid);
+  }
 }

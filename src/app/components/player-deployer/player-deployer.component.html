@@ -1,4 +1,5 @@
 <div class="player-deployer">
   <standee [combatant]="data.party[uid]"></standee>
-  <deploy (onDeploy)="deploy($event)"></deploy>
+  <deploy *ngIf="!isPlayerDeployed()" (onDeploy)="deploy($event)"></deploy>
+  <h5 *ngIf="isPlayerDeployed()">Deployed at i{{ findInitiative() }}</h5>
 </div>
