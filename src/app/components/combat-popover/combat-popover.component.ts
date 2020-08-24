@@ -13,6 +13,10 @@ export class CombatPopoverComponent implements OnInit {
 
   ngOnInit() {}
 
+  nanValue() {
+    return isNaN(this.value);
+  }
+
   heal() {
     this.popoverController.dismiss({ "heal": this.value });
   }

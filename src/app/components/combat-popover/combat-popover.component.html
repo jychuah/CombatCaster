@@ -1,8 +1,11 @@
+<ion-label stacked>
+  Hit Points
+</ion-label>
 <ion-input type="number" [(ngModel)]="value" autofocus></ion-input>
-<ion-button color="primary" (click)="heal()">
+<ion-button color="primary" (click)="heal()" [disabled]="nanValue()">
   Heal
 </ion-button>
-<ion-button color="danger" (click)="damage()">
+<ion-button color="danger" (click)="damage()" [disabled]="nanValue()">
   Damage
 </ion-button>
 <ion-button color="secondary" (click)="close()">
