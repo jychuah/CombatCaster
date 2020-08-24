@@ -23,7 +23,7 @@
         {{ data.monsters[uid].maxHP }} HP
       </ion-item>
       <ion-item>
-        <a [href]="data.monsters[uid].url" target="_blank">Link</a>
+        <a *ngIf="data.monsters[uid].url" [href]="data.monsters[uid].url" target="_blank">Link</a>
       </ion-item>
     </div>
     <div>
