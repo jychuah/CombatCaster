@@ -97,6 +97,7 @@ export class DataService {
           for (const [groupUID, group] of Object.entries(this.combat.groups)) {
             if (!(groupUID in change.groups)) {
               delete this.combat.groups[groupUID];
+              this.combat.groups = { ...this.combat.groups };
             }
           }
         }
