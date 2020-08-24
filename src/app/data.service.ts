@@ -169,6 +169,9 @@ export class DataService {
   }
 
   syncPlayer(uid: string, url: string) {
+    const tokens = url.split('/');
+    const dndUID = tokens[tokens.length - 1];
+    const dndApiUrl = `https://character-service.dndbeyond.com/character/v3/character/${dndUID}`;
     let player: Player = null;
     if (!this.party[uid]) {
       player = {
@@ -177,7 +180,7 @@ export class DataService {
     } else {
       player = { ...this.party[uid] };
     }
-    this.http.get("https://cors-anywhere.herokuapp.com/" + player.url).toPromise().then(
+    this.http.get("https://cors-anywhere.herokuapp.com/" + dndApiUrl).toPromise().then(
       (response: any) => {
         let data = response.data;
         if (data.overrideHitPoints) {

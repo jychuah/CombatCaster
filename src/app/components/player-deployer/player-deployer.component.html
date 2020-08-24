@@ -1,5 +1,10 @@
 <div class="player-deployer">
   <standee [combatant]="data.party[uid]"></standee>
+  <div>
+    <a [href]="data.party[uid].url" target="_blank">Character Sheet</a>
+    <br />
+    <br />
+  </div>
   <deploy *ngIf="!isPlayerDeployed()" (onDeploy)="deploy($event)"></deploy>
   <h5 *ngIf="isPlayerDeployed()">Deployed at i{{ findInitiative() }}</h5>
 </div>

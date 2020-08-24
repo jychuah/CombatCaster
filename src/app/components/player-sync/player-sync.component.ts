@@ -21,7 +21,7 @@ export class PlayerSyncComponent implements OnInit {
     this.popoverController.dismiss(
       {
         uid: this.uid,
-        url: `https://character-service.dndbeyond.com/character/v3/character/${this.url}`
+        url: this.url
       }
     );
   }

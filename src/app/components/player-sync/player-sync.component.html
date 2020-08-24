@@ -5,7 +5,7 @@
     {{ user.value.displayName }}
   </ion-select-option>
 </ion-select>
-<ion-label stacked>DnD Beyond Character ID</ion-label>
-<ion-input type="number" [(ngModel)]="url"></ion-input>
+<ion-label stacked>DnD Beyond Character URL</ion-label>
+<ion-input type="url" [(ngModel)]="url"></ion-input>
 <ion-button (click)="close()" color="secondary">Close</ion-button>
 <ion-button (click)="sync()" [disabled]="!url || !uid">Sync</ion-button>
