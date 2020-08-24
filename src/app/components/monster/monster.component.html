@@ -22,6 +22,9 @@
       <ion-item>
         {{ data.monsters[uid].maxHP }} HP
       </ion-item>
+      <ion-item>
+        <a [href]="data.monsters[uid].url" target="_blank">Link</a>
+      </ion-item>
     </div>
     <div>
       <div>Attacks ({{ data.monsters[uid].numAttacks }} per round)</div>
