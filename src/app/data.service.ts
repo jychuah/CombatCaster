@@ -82,15 +82,19 @@ export class DataService {
           if (this.combat.initiative != change.initiative) {
             this.combat.initiative = change.initiative;
           }
-          for (const [groupUID, group] of Object.entries(change.groups)) {
-            if (!(groupUID in this.combat.groups)) {
-              this.combat.groups = { ...this.combat.groups, [groupUID]: group};
-            } else {
-              if (JSON.stringify(this.combat.groups[groupUID]) !== JSON.stringify(group)) {
-                this.combat.groups = {...this.combat.groups, [groupUID]: group};
+          if (!change.groups) {
+            this.combat.groups = { }
+          } else {
+            for (const [groupUID, group] of Object.entries(change.groups)) {
+              if (!(groupUID in this.combat.groups)) {
+                this.combat.groups = { ...this.combat.groups, [groupUID]: group};
+              } else {
+                if (JSON.stringify(this.combat.groups[groupUID]) !== JSON.stringify(group)) {
+                  this.combat.groups = {...this.combat.groups, [groupUID]: group};
+                }
               }
             }
-          }
+          }          
           if (JSON.stringify(this.combat.encounter) != JSON.stringify(change.encounter)) {
             this.combat.encounter = change.encounter;
           }
