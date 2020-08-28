@@ -386,7 +386,7 @@ export class DataService {
 
   saveMonster(uid: string, monster: Monster) {
     let portrait: string = monster.portrait || '';
-    if (uid in this.monsters && this.monsters[uid].portrait) {
+    if (!portrait && this.monsters[uid] && this.monsters[uid].portrait) {
       console.log("Found portrait value");
       portrait = this.monsters[uid].portrait;
     }
