@@ -385,7 +385,11 @@ export class DataService {
   }
 
   saveMonster(uid: string, monster: Monster) {
-    this.monsters[uid] = { ...monster }
+    let portrait: string = '';
+    if (uid in this.monsters && this.monsters[uid].portrait) {
+      portrait = this.monsters[uid].portrait;
+    }
+    this.monsters[uid] = { ...monster, portrait }
     const itemRef = this.db.object(`monsters/${uid}`);
     itemRef.set(monster);
   }
