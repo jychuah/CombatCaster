@@ -6,6 +6,9 @@ import {
   Combat, Player, SpawnGroup, 
   Monster, Encounter,
   CombatGroup,
+  ImageContentStore,
+  ImageMetaStore,
+  ImageMetadata,
   Combatant } from './types';
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
@@ -33,6 +36,11 @@ export class DataService {
   public party: PlayerMap = { }
   public monsters: MonsterMap = { }
   public encounters: EncounterMap = { }
+  public imageContent: ImageContentStore = { }
+  public imageMetadata: ImageMetaStore = {
+    thumbnail: { },
+    portrait: { }
+  }
   public combat: Combat = { ...combatInitialState }
 
   public user: any = null;
@@ -47,6 +55,7 @@ export class DataService {
   encounterEvents: Observable<any>;
   combatEvents: Observable<any>;
   roleEvents: Observable<any>;
+  imageEvents: Observable<any>;
 
   constructor(private http: HttpClient,
               private sanitizer: DomSanitizer,
@@ -55,6 +64,7 @@ export class DataService {
               public auth: AngularFireAuth, 
               private zone: NgZone,
               private storage: AngularFireStorage) {
+    this.loadAllImages();
     this.auth.onAuthStateChanged(
       (user) => {
         this.zone.run(
@@ -65,6 +75,23 @@ export class DataService {
         )
       }
     )
+  }
+
+  loadAllImages() {
+    let loadedMeta: string = localStorage.getItem('imageMetadata');
+    if (loadedMeta) {
+      this.imageMetadata = JSON.parse(loadedMeta);
+    }
+    for (const [ imageUID, metadata ] of Object.entries(this.imageMetadata.thumbnail)) {
+      console.log("Loading from storage", metadata.storageKey);
+      this.imageContent[metadata.storageKey] = localStorage.getItem(metadata.storageKey);
+    }
+    for (const [ imageUID, metadata ] of Object.entries(this.imageMetadata.portrait)) {
+      console.log("Loading from storage", metadata.storageKey);
+      this.imageContent[metadata.storageKey] = localStorage.getItem(metadata.storageKey);
+    }
+    console.log("Loaded image metadata", this.imageMetadata);
+    console.log("Loaded image content", this.imageContent);
   }
 
   updateUser(role: string) {
@@ -148,6 +175,59 @@ export class DataService {
         }
       }
     )
+    this.imageEvents = this.db.object('images').valueChanges();
+    this.imageEvents.subscribe(
+      (imageMetadata: ImageMetaStore) => {
+        if (!imageMetadata) return;
+        
+        console.log("Image meta update", imageMetadata);
+        console.log("Current meta", this.imageMetadata);
+        if ("thumbnail" in imageMetadata) {
+          for (const [imageUID, metadata] of Object.entries(imageMetadata["thumbnail"])) {
+            if (
+              !(imageUID in this.imageMetadata.thumbnail) ||
+              JSON.stringify(this.imageMetadata.thumbnail[imageUID]) != JSON.stringify(metadata) ||
+              !this.imageContent[(metadata as ImageMetadata).storageKey]
+            ) {
+              console.log("Thumbnail update", metadata);
+              this.imageMetadata["thumbnail"][imageUID] = metadata as ImageMetadata;
+              this.downloadImage(metadata as ImageMetadata);
+            }
+          }
+        }
+        if ("portrait" in imageMetadata) {
+          for (const [imageUID, metadata] of Object.entries(imageMetadata["portrait"])) {
+            if (
+              !(imageUID in this.imageMetadata.thumbnail) ||
+              JSON.stringify(this.imageMetadata.thumbnail[imageUID]) != JSON.stringify(metadata) ||
+              !this.imageContent[(metadata as ImageMetadata).storageKey]
+            ) {
+              console.log("Portrait update", metadata);
+              this.imageMetadata["portrait"][imageUID] = metadata as ImageMetadata;
+              this.downloadImage(metadata as ImageMetadata);
+            }
+          }
+        }
+        localStorage.setItem("imageMetadata", JSON.stringify(this.imageMetadata));
+      }
+    )
+  }
+
+  downloadImage(metadata: ImageMetadata) {
+    console.log("Download image", metadata);
+    this.http.get(metadata.url, { responseType: 'arraybuffer' }).toPromise().then(
+      (response) => {
+        var arr = new Uint8Array(response);
+        var raw = String.fromCharCode.apply(null, arr);
+        var b64 = btoa(raw);
+        var dataURL = `data:${metadata.type};base64,${b64}`;
+        this.imageContent[metadata.storageKey] = dataURL;
+        localStorage.setItem(metadata.storageKey, dataURL);
+     },
+     (error) => {
+       console.log(error);
+     }
+    )
   }
 
   login() {
@@ -157,7 +237,6 @@ export class DataService {
   logout() {
     this.auth.signOut();
   }
-
 
   replacePlayer(uid: string, player: Player) {
     this.party[uid] = { ...player };
@@ -406,9 +485,15 @@ export class DataService {
     itemRef.set(this.combat);
   }
 
-  upload(file: any, uid: string) {
-    const fileRef = this.storage.ref(uid);
-    this.uploadTask = this.storage.upload(uid, file);
+  saveImageMetadata(metadata: ImageMetadata) {
+
+  }
+
+  upload(file: any, uid: string, role: string) {
+    console.log(file);
+    const refName = `${uid}.${role}`;
+    const fileRef = this.storage.ref(refName);
+    this.uploadTask = this.storage.upload(refName, file);
     this.uploadPercent = this.uploadTask.percentageChanges();
 
     this.uploadPercent.subscribe(
@@ -421,13 +506,22 @@ export class DataService {
       () => {
         const downloadEvents = fileRef.getDownloadURL();
         downloadEvents.toPromise().then(
-          (url) => {
+          (url: string) => {
             this.saveMonster(uid, 
               {
                 ...this.monsters[uid],
                 portrait: url
               }
-            )
+            );
+            const metaRef = this.db.object(`images/${role}/${uid}`);
+            const imageMeta: ImageMetadata = {
+              url,
+              size: file.size,
+              type: file.type,
+              lastModified: Date.now(),
+              storageKey: `${uid}.${role}`
+            }
+            metaRef.set(imageMeta);
           }
         );
       }

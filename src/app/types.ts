@@ -69,3 +69,24 @@ export interface MonsterMap {
 export interface EncounterMap {
   [uid: string]: Encounter
 }
+
+export interface ImageMetadata {
+  lastModified: number,
+  type: string,
+  size: number,
+  url?: string,
+  storageKey: string
+}
+
+export interface ImageContentStore {
+  [key: string]: string
+}
+
+export interface ImageMetaStore {
+  thumbnail?: {
+    [uid: string]: ImageMetadata
+  },
+  portrait?: {
+    [uid: string]: ImageMetadata
+  }
+}

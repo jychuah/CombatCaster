@@ -9,7 +9,7 @@
   <ion-card-content *ngIf="!collapse">
     <div class="controls">
       <ion-avatar>
-        <img [src]="data.getPortrait(data.monsters[uid].portrait)">
+        <img [src]="data.imageContent[thumbnailKey]">
       </ion-avatar>
       <ion-button (click)="edit()">Edit</ion-button>
       <ion-button (click)="delete()" color="danger">Delete</ion-button>  

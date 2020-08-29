@@ -10,10 +10,15 @@ import { Router } from '@angular/router';
 export class MonsterComponent implements OnInit {
   @Input('uid') uid: string;
   collapse: boolean = true;
+  thumbnailKey: string;
+  portraitKey: string;
 
   constructor(public data: DataService, public router: Router) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.thumbnailKey = `${this.uid}.thumbnail`;
+    this.portraitKey = `${this.uid}.portrait`;
+  }
 
   edit() {
     this.router.navigateByUrl(`/edit-monster/${this.uid}`);
@@ -28,7 +33,6 @@ export class MonsterComponent implements OnInit {
   }
 
   uploadChange($event) {
-    this.data.upload($event.target.files[0], this.uid);
+    this.data.upload($event.target.files[0], this.uid, "thumbnail");
   }
-
 }
