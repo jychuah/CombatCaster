@@ -32,4 +32,8 @@ export class MonsterComponent implements OnInit {
     this.collapse = !this.collapse;
   }
 
+  setPortrait() {
+    this.data.setPortrait(this.uid);
+  }
+
 }

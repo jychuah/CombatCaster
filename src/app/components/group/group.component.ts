@@ -15,4 +15,8 @@ export class GroupComponent implements OnInit {
 
   ngOnInit() {}
 
+  setPortrait(uid: string) {
+    this.data.setPortrait(uid);
+  }
+
 }

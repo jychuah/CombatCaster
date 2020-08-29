@@ -13,6 +13,7 @@
       </ion-avatar>
       <ion-button (click)="edit()">Edit</ion-button>
       <ion-button (click)="delete()" color="danger">Delete</ion-button>  
+      <ion-button *ngIf="data.imageContent[uid + '.portrait']" (click)="setPortrait()">Portrait</ion-button>
     </div>
     <div>
       Stats

@@ -55,6 +55,9 @@ export class DataService {
   combatEvents: Observable<any>;
   roleEvents: Observable<any>;
   imageEvents: Observable<any>;
+  portraitEvents: Observable<any>;
+
+  public portraitKey: string;
 
   constructor(private http: HttpClient,
               private router: Router,
@@ -98,6 +101,12 @@ export class DataService {
   }
 
   subscribeToEvents() {
+    this.portraitEvents = this.db.object('portraitKey').valueChanges();
+    this.portraitEvents.subscribe(
+      (portraitKey: string) => {
+        this.portraitKey = portraitKey;
+      }
+    )
     this.combatEvents = this.db.object('combat').valueChanges();
     this.combatEvents.subscribe(
       (change: Combat) => {
@@ -531,6 +540,12 @@ export class DataService {
         );
       }
     );
+  }
+
+  setPortrait(uid: string) {
+    this.portraitKey = `${uid}.portrait`;
+    const keyRef = this.db.object('portraitKey');
+    keyRef.set(this.portraitKey);
   }
 
   isDm() {
