@@ -1,11 +1,8 @@
-import { SafeUrl } from '@angular/platform-browser';
-
 export interface Combatant {
   ac?: number,
   maxHP?: number,
   name?: string,
   currentHP?: number,
-  portrait?: string
 }
 
 export interface Attack {
@@ -30,7 +27,6 @@ export interface CombatGroup {
     [uid: string]: Combatant
   },
   initiative: number,
-  portrait: string,
   type: string,
   focus?: boolean,
   uid: string

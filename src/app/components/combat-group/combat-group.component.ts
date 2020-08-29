@@ -3,7 +3,6 @@ import { CombatGroup } from 'src/app/types';
 import { DataService } from 'src/app/data.service';
 import { PopoverController } from '@ionic/angular';
 import { CombatPopoverComponent } from '../combat-popover/combat-popover.component';
-import { SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'combat-group',
@@ -13,15 +12,13 @@ import { SafeUrl } from '@angular/platform-browser';
 export class CombatGroupComponent implements OnInit {
   @Input('uid') uid: string;
   @Input('group') group: CombatGroup;
-  safeUrl: SafeUrl = null;
+  thumbnailKey: string;
 
   constructor(public data: DataService, public popoverController: PopoverController) {
   }
 
   ngOnInit() {
-    if (!this.safeUrl) {
-      this.safeUrl = this.data.getPortrait(this.group.portrait);
-    }
+    this.thumbnailKey = `${this.group.uid}.thumbnail`;
   }
 
   async showCombatPopover(combatantUID: string) {

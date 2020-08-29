@@ -1,6 +1,6 @@
 <ion-card>
   <ion-card-header>
-    <img [src]="data.getPortrait(data.party[uid].portrait)" />
+    <img [src]="data.imageContent[thumbnailKey]" />
     <ion-card-title>{{ data.party[uid].name }}</ion-card-title>
     <i>{{ data.users[uid].displayName }}</i><br/>
     <ion-button (click)="sync()">Sync</ion-button>

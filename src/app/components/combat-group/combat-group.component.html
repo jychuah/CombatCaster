@@ -1,6 +1,6 @@
 <ion-item [class]="initiative() ? 'highlight': ''">
   <ion-avatar>
-    <img [src]="safeUrl" [class]="initiative() ? 'initiative' : 'normal'">
+    <img [src]="data.imageContent[thumbnailKey]" [class]="initiative() ? 'initiative' : 'normal'">
   </ion-avatar>
   <ion-label>
     <div class="group-flex">

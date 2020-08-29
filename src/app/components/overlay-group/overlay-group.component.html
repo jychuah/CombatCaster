@@ -1,6 +1,6 @@
 <div [class]="initiative() ? 'highlight overlay-group': 'overlay-group'">
   <ion-avatar>
-    <img [src]="safeUrl" [class]="initiative() ? 'initiative' : 'normal'">
+    <img [src]="data.imageContent[thumbnailKey]" [class]="initiative() ? 'initiative' : 'normal'">
   </ion-avatar>
   <div class="group-content">
     <standee

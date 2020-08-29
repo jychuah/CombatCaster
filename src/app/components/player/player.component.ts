@@ -7,9 +7,13 @@ import { DataService } from '../../data.service';
 })
 export class PlayerComponent implements OnInit {
   @Input('uid') uid: string;
+  thumbnailKey: string;
+
   constructor(public data: DataService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.thumbnailKey = `${this.uid}.thumbnail`;
+  }
 
   sync() {
     this.data.syncPlayer(this.uid, this.data.party[this.uid].url);

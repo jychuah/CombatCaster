@@ -11,7 +11,6 @@ import {
   ImageMetadata,
   Combatant } from './types';
 import { HttpClient } from '@angular/common/http';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase/app';
@@ -58,7 +57,6 @@ export class DataService {
   imageEvents: Observable<any>;
 
   constructor(private http: HttpClient,
-              private sanitizer: DomSanitizer,
               private router: Router,
               public db: AngularFireDatabase,
               public auth: AngularFireAuth, 
@@ -213,9 +211,9 @@ export class DataService {
     )
   }
 
-  downloadImage(metadata: ImageMetadata) {
-    console.log("Download image", metadata);
-    this.http.get(metadata.url, { responseType: 'arraybuffer' }).toPromise().then(
+  downloadImage(metadata: ImageMetadata, synchronize: boolean = false) {
+    let accept = "image/webp,image/apng,image/*,*/*;q=0.8";
+    this.http.get(metadata.url, { responseType: 'arraybuffer', headers: { 'accept': accept } }).toPromise().then(
       (response) => {
         var arr = new Uint8Array(response);
         var raw = String.fromCharCode.apply(null, arr);
@@ -223,10 +221,10 @@ export class DataService {
         var dataURL = `data:${metadata.type};base64,${b64}`;
         this.imageContent[metadata.storageKey] = dataURL;
         localStorage.setItem(metadata.storageKey, dataURL);
-     },
-     (error) => {
-       console.log(error);
-     }
+      },
+      (error) => {
+        console.log(error);
+      }
     )
   }
 
@@ -284,6 +282,7 @@ export class DataService {
               data.modifiers[category].forEach(
                 modifier => {
                   if (modifier.subType === 'dexterity-score') {
+                    console.log("Adding AC Modifier", modifier);
                     dex += modifier.value
                   }
                 }
@@ -296,20 +295,41 @@ export class DataService {
         equipped.forEach(
           equipped => {
             if (equipped.definition.armorClass) {
+              console.log("Adding AC Equipment", equipped.definition);
               ac += equipped.definition.armorClass;
             }
           }
         )
         ac += statBonus[dex];
         player.ac = ac;
-        player.portrait = data.avatarUrl;
+        let type: string;
+        let url: string = data.avatarUrl.toLowerCase();
+        if (url.includes(".jpeg") || data.avatarUrl.includes(".jpg")) {
+          type = "image/jpg";
+        }
+        if (url.includes(".png")) {
+          type = "image/png";
+        }
+        this.syncPlayerThumbnail(
+          uid,
+          `https://cors-anywhere.herokuapp.com/${url}`,
+          type
+        )
         this.replacePlayer(uid, player);
       }
     )
   }
 
-  getPortrait(portrait: string) {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(portrait);
+  syncPlayerThumbnail(uid: string, url: string, type: string) {
+    let accept = "image/webp,image/apng,image/*,*/*;q=0.8"
+    this.http.get(url, { responseType: 'arraybuffer', headers: { 'accept': accept } }).toPromise().then(
+      (response) => {
+        this.upload(new Blob([response], { type }), uid, "thumbnail");
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
   }
 
   insertCombatGroup(group: CombatGroup) {
@@ -338,7 +358,6 @@ export class DataService {
       },
       initiative,
       type: "party",
-      portrait: this.party[uid].portrait,
       uid
     }
     this.insertCombatGroup(group);
@@ -360,7 +379,6 @@ export class DataService {
             combatants,
             initiative,
             type: "monster",
-            portrait: this.monsters[spawn.uid].portrait,
             uid: spawn.uid
           }
         )
@@ -464,12 +482,7 @@ export class DataService {
   }
 
   saveMonster(uid: string, monster: Monster) {
-    let portrait: string = monster.portrait || '';
-    if (!portrait && this.monsters[uid] && this.monsters[uid].portrait) {
-      console.log("Found portrait value");
-      portrait = this.monsters[uid].portrait;
-    }
-    this.monsters[uid] = { ...monster, portrait }
+    this.monsters[uid] = { ...monster }
     const itemRef = this.db.object(`monsters/${uid}`);
     itemRef.set(monster);
   }
@@ -485,12 +498,8 @@ export class DataService {
     itemRef.set(this.combat);
   }
 
-  saveImageMetadata(metadata: ImageMetadata) {
-
-  }
-
   upload(file: any, uid: string, role: string) {
-    console.log(file);
+    console.log("Upload", file);
     const refName = `${uid}.${role}`;
     const fileRef = this.storage.ref(refName);
     this.uploadTask = this.storage.upload(refName, file);
@@ -507,12 +516,6 @@ export class DataService {
         const downloadEvents = fileRef.getDownloadURL();
         downloadEvents.toPromise().then(
           (url: string) => {
-            this.saveMonster(uid, 
-              {
-                ...this.monsters[uid],
-                portrait: url
-              }
-            );
             const metaRef = this.db.object(`images/${role}/${uid}`);
             const imageMeta: ImageMetadata = {
               url,
