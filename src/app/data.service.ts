@@ -80,6 +80,7 @@ export class DataService {
     if (loadedMeta) {
       this.imageMetadata = JSON.parse(loadedMeta);
     }
+    console.log("Loaded image metadata", this.imageMetadata);
     for (const [ imageUID, metadata ] of Object.entries(this.imageMetadata.thumbnail)) {
       console.log("Loading from storage", metadata.storageKey);
       this.imageContent[metadata.storageKey] = localStorage.getItem(metadata.storageKey);
@@ -88,8 +89,7 @@ export class DataService {
       console.log("Loading from storage", metadata.storageKey);
       this.imageContent[metadata.storageKey] = localStorage.getItem(metadata.storageKey);
     }
-    console.log("Loaded image metadata", this.imageMetadata);
-    console.log("Loaded image content", this.imageContent);
+    console.log("Loaded image content");
   }
 
   updateUser(role: string) {
@@ -177,9 +177,7 @@ export class DataService {
     this.imageEvents.subscribe(
       (imageMetadata: ImageMetaStore) => {
         if (!imageMetadata) return;
-        
         console.log("Image meta update", imageMetadata);
-        console.log("Current meta", this.imageMetadata);
         if ("thumbnail" in imageMetadata) {
           for (const [imageUID, metadata] of Object.entries(imageMetadata["thumbnail"])) {
             if (
@@ -196,8 +194,8 @@ export class DataService {
         if ("portrait" in imageMetadata) {
           for (const [imageUID, metadata] of Object.entries(imageMetadata["portrait"])) {
             if (
-              !(imageUID in this.imageMetadata.thumbnail) ||
-              JSON.stringify(this.imageMetadata.thumbnail[imageUID]) != JSON.stringify(metadata) ||
+              !(imageUID in this.imageMetadata.portrait) ||
+              JSON.stringify(this.imageMetadata.portrait[imageUID]) != JSON.stringify(metadata) ||
               !this.imageContent[(metadata as ImageMetadata).storageKey]
             ) {
               console.log("Portrait update", metadata);

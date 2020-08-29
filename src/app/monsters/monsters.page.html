@@ -9,6 +9,6 @@
 
 <ion-content>
   <monster 
-    *ngFor="let monster of data.monsters | keyvalue" 
+    *ngFor="let monster of data.monsters | keyvalue | sortMonsters" 
     [uid]="monster.key"></monster>
 </ion-content>

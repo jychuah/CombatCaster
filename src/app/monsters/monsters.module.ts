@@ -8,6 +8,7 @@ import { MonstersPageRoutingModule } from './monsters-routing.module';
 
 import { MonstersPage } from './monsters.page';
 import { ComponentsModule } from '../components/components.module';
+import { PipesModule } from 'src/app/pipes/pipes.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { ComponentsModule } from '../components/components.module';
     FormsModule,
     IonicModule,
     MonstersPageRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    PipesModule
   ],
   declarations: [MonstersPage]
 })
