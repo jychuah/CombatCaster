@@ -3,18 +3,19 @@
     <img [src]="safeUrl" [class]="initiative() ? 'initiative' : 'normal'">
   </ion-avatar>
   <ion-label>
-    <div class="group-content">
-      <div
-        class="standees"
-        *ngFor="let combatant of group.combatants | keyvalue">
-        <standee
-          [bars]="!data.isDm()"
-          [combatant]="combatant.value"
-          (click)="showCombatPopover(combatant.key)"></standee>
-        <ion-button *ngIf="data.isDm()" (click)="remove(combatant.key)">Remove</ion-button>
+    <div class="group-flex">
+      <div class="group-content">
+        <div
+          class="standees"
+          *ngFor="let combatant of group.combatants | keyvalue">
+          <standee
+            [bars]="!data.isDm()"
+            [combatant]="combatant.value"
+            (click)="showCombatPopover(combatant.key)"></standee>
+          <ion-button *ngIf="data.isDm()" (click)="remove(combatant.key)">Remove</ion-button>
+        </div>
       </div>
-      <div class="attacks" 
-        *ngIf="showAttacks()">
+      <div class="attacks" *ngIf="showAttacks()">
         <h3>Attacks: {{ data.monsters[group.uid].numAttacks }}</h3>
         <div *ngFor="let attack of data.monsters[group.uid].attacks">
           {{ attack.name }}: +{{ attack.bonus }}, {{ attack.medianDamage }} dmg, {{ attack.dice }}

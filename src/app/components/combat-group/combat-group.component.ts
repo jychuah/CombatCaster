@@ -41,8 +41,8 @@ export class CombatGroupComponent implements OnInit {
   }
 
   showAttacks() {
-    return this.data.monsters && this.data.monsters[this.group.uid] && 
-      this.group.type === 'monster' && this.initiative();
+    return this.data.isDm() && this.data.monsters 
+      && this.data.monsters[this.group.uid] && this.group.type === 'monster';
   }
 
   remove(uid: string) {
