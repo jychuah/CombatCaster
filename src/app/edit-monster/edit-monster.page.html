@@ -40,7 +40,4 @@
     <ion-button (click)="deleteAttack(index)">Delete</ion-button>
   </div>
   <ion-button (click)="newAttack()">New Attack</ion-button>
-  <ion-input type="file" (change)="uploadChange($event)"></ion-input>
-  <ion-progress-bar *ngIf="data.uploadTask" [value]="data.uploadPercentage"></ion-progress-bar>
-  <img [src]="data.getPortrait(data.monsters[uid].portrait)"/>
 </ion-content>
