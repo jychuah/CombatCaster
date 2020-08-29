@@ -200,6 +200,10 @@ export class DataService {
             }
           }
         }
+        if (!this.isDm()) {
+          console.log("Ignoring portrait updates, since you are not DM");
+          return;
+        }
         if ("portrait" in imageMetadata) {
           for (const [imageUID, metadata] of Object.entries(imageMetadata["portrait"])) {
             if (
