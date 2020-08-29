@@ -216,7 +216,11 @@ export class DataService {
     this.http.get(metadata.url, { responseType: 'arraybuffer', headers: { 'accept': accept } }).toPromise().then(
       (response) => {
         var arr = new Uint8Array(response);
-        var raw = String.fromCharCode.apply(null, arr);
+        var len = arr.byteLength;
+        var raw = '';
+        for (var i = 0; i < len; i++) {
+            raw += String.fromCharCode( arr[ i ] );
+        }
         var b64 = btoa(raw);
         var dataURL = `data:${metadata.type};base64,${b64}`;
         this.imageContent[metadata.storageKey] = dataURL;

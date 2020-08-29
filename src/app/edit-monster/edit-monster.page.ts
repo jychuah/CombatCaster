@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 export class EditMonsterPage implements OnInit {
   monster: Monster;
   uid: string;
+  thumbnailKey: string;
+  portraitKey: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -21,6 +23,8 @@ export class EditMonsterPage implements OnInit {
       params => {
         this.monster = { ...this.data.monsters[params.uid] };
         this.uid = params.uid;
+        this.thumbnailKey = `${this.uid}.thumbnail`;
+        this.portraitKey = `${this.uid}.portrait`;
       }
     );
   }
@@ -58,5 +62,12 @@ export class EditMonsterPage implements OnInit {
     this.cancel();
   }
 
+  uploadThumbnail($event) {
+    this.data.upload($event.target.files[0], this.uid, "thumbnail");
+  }
+
+  uploadPortrait($event) {
+    this.data.upload($event.target.files[0], this.uid, "portrait");
+  }
 
 }

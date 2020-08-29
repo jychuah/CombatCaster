@@ -15,10 +15,6 @@
       <ion-button (click)="delete()" color="danger">Delete</ion-button>  
     </div>
     <div>
-      <ion-input type="file" (change)="uploadChange($event)"></ion-input>
-      <ion-progress-bar *ngIf="data.uploadTask" [value]="data.uploadPercentage"></ion-progress-bar>
-    </div>
-    <div>
       Stats
       <ion-item>
         AC {{ data.monsters[uid].ac }}

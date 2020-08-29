@@ -32,7 +32,4 @@ export class MonsterComponent implements OnInit {
     this.collapse = !this.collapse;
   }
 
-  uploadChange($event) {
-    this.data.upload($event.target.files[0], this.uid, "thumbnail");
-  }
 }

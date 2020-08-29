@@ -40,4 +40,16 @@
     <ion-button (click)="deleteAttack(index)">Delete</ion-button>
   </div>
   <ion-button (click)="newAttack()">New Attack</ion-button>
+  <div>
+    <h3>Thumbnail</h3>
+    <ion-input type="file" (change)="uploadThumbnail($event)" [disabled]="data.uploadTask"></ion-input>
+    <ion-progress-bar *ngIf="data.uploadTask" [value]="data.uploadPercentage"></ion-progress-bar>
+    <ion-avatar>
+      <img [src]="data.imageContent[thumbnailKey]" />
+    </ion-avatar>
+    <h3>Portrait</h3>
+    <ion-input type="file" (change)="uploadPortrait($event)" [disabled]="data.uploadTask"></ion-input>
+    <ion-progress-bar *ngIf="data.uploadTask" [value]="data.uploadPercentage"></ion-progress-bar>
+    <img [src]="data.imageContent[portraitKey]" />
+  </div>
 </ion-content>
