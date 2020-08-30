@@ -16,7 +16,9 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase/app';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
-import { Observable } from 'rxjs';
+import { Observable, from, zip } from 'rxjs';
+import { concatMap, tap } from 'rxjs/operators';
+import { Storage } from '@ionic/storage';
 import * as uuid from 'uuid';
 
 const combatInitialState: Combat = {
@@ -64,35 +66,70 @@ export class DataService {
               public db: AngularFireDatabase,
               public auth: AngularFireAuth, 
               private zone: NgZone,
-              private storage: AngularFireStorage) {
-    this.loadAllImages();
-    this.auth.onAuthStateChanged(
-      (user) => {
-        this.zone.run(
-          () => {
-            this.user = user;
-            this.subscribeToEvents();
-          }
-        )
+              private storage: AngularFireStorage,
+              private istore: Storage) {
+    this.istore.ready().then(
+      () => {
+        this.loadMetadata();
       }
     )
   }
 
-  loadAllImages() {
-    let loadedMeta: string = localStorage.getItem('imageMetadata');
-    if (loadedMeta) {
-      this.imageMetadata = JSON.parse(loadedMeta);
-    }
-    console.log("Loaded image metadata", this.imageMetadata);
+
+
+  loadMetadata() {
+    this.istore.get('imageMetadata').then(
+      (loadedMeta) => {
+        this.imageMetadata = loadedMeta;
+        console.log("Loaded image metadata", this.imageMetadata);
+        if (!this.imageMetadata) {
+          this.imageMetadata = {
+            thumbnail: { },
+            portrait: { }
+          }
+        }
+        this.loadCachedImages();
+      }
+    )
+  }
+
+  loadCachedImages() {
+    let queue = [ ];
     for (const [ imageUID, metadata ] of Object.entries(this.imageMetadata.thumbnail)) {
-      console.log("Loading from storage", metadata.storageKey);
-      this.imageContent[metadata.storageKey] = localStorage.getItem(metadata.storageKey);
+      queue.push(metadata.storageKey);
     }
     for (const [ imageUID, metadata ] of Object.entries(this.imageMetadata.portrait)) {
-      console.log("Loading from storage", metadata.storageKey);
-      this.imageContent[metadata.storageKey] = localStorage.getItem(metadata.storageKey);
+      queue.push(metadata.storageKey);
     }
-    console.log("Loaded image content");
+    let key_obs = from(queue);
+    let value_obs = from(queue).pipe(
+      concatMap(
+        storageKey => this.istore.get(storageKey)
+      ),
+    )
+    let zipped = zip(key_obs, value_obs, (key, value) => ({ key, value }));
+    zipped.subscribe(
+      ( result ) => {
+        this.imageContent[result.key] = result.value;
+        console.log("Loaded", result.key);
+      },
+      (error) => {
+        console.log("Error", error);
+      },
+      () => {
+        console.log("Finished loading local image cache");
+        this.auth.onAuthStateChanged(
+          (user) => {
+            this.zone.run(
+              () => {
+                this.user = user;
+                this.subscribeToEvents();
+              }
+            )
+          }
+        )
+      }
+    )
   }
 
   updateUser(role: string) {
@@ -187,6 +224,7 @@ export class DataService {
       (imageMetadata: ImageMetaStore) => {
         if (!imageMetadata) return;
         console.log("Image meta update", imageMetadata);
+        let downloadQueue: ImageMetadata[] = [];
         if ("thumbnail" in imageMetadata) {
           for (const [imageUID, metadata] of Object.entries(imageMetadata["thumbnail"])) {
             if (
@@ -196,15 +234,11 @@ export class DataService {
             ) {
               console.log("Thumbnail update", metadata);
               this.imageMetadata["thumbnail"][imageUID] = metadata as ImageMetadata;
-              this.downloadImage(metadata as ImageMetadata);
+              downloadQueue.push(metadata as ImageMetadata)
             }
           }
         }
-        if (!this.isDm()) {
-          console.log("Ignoring portrait updates, since you are not DM");
-          return;
-        }
-        if ("portrait" in imageMetadata) {
+        if (this.isDm() && "portrait" in imageMetadata) {
           for (const [imageUID, metadata] of Object.entries(imageMetadata["portrait"])) {
             if (
               !(imageUID in this.imageMetadata.portrait) ||
@@ -213,11 +247,41 @@ export class DataService {
             ) {
               console.log("Portrait update", metadata);
               this.imageMetadata["portrait"][imageUID] = metadata as ImageMetadata;
-              this.downloadImage(metadata as ImageMetadata);
+              downloadQueue.push(metadata as ImageMetadata);
             }
           }
         }
-        localStorage.setItem("imageMetadata", JSON.stringify(this.imageMetadata));
+        this.istore.set("imageMetadata", this.imageMetadata);
+        this.downloadImages(downloadQueue);
+      }
+    )
+  }
+
+  downloadImages(queue: ImageMetadata[]) {
+    let accept = "image/webp,image/apng,image/*,*/*;q=0.8";    
+    let metadata_obs = from(queue);
+    let response_obs = from(queue).pipe(
+      concatMap(
+        metadata => this.http.get(metadata.url, { responseType: 'arraybuffer', headers: { 'accept': accept } }),
+      )
+    );
+    let zipped = zip(
+      metadata_obs,
+      response_obs,
+      (metadata: ImageMetadata, response) => ({ metadata, response})
+    );
+    zipped.subscribe(
+      ({ metadata, response }) => {
+        var arr = new Uint8Array(response);
+        var len = arr.byteLength;
+        var raw = '';
+        for (var i = 0; i < len; i++) {
+            raw += String.fromCharCode( arr[ i ] );
+        }
+        var b64 = btoa(raw);
+        var dataURL = `data:${metadata.type};base64,${b64}`;
+        this.imageContent[metadata.storageKey] = dataURL;
+        this.istore.set(metadata.storageKey, dataURL);
       }
     )
   }

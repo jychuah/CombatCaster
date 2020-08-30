@@ -19,6 +19,7 @@ import { ComponentsModule } from './components/components.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CombatPageModule } from './combat/combat.module';
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { CombatPageModule } from './combat/combat.module';
     HttpClientModule,
     FormsModule,
     AngularFireStorageModule,
-    CombatPageModule
+    CombatPageModule,
+    IonicStorageModule.forRoot()
   ],
   providers: [
     StatusBar,
