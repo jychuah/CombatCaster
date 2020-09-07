@@ -15,6 +15,7 @@ import { CombatPopoverComponent } from './combat-popover/combat-popover.componen
 import { PlayerSyncComponent } from './player-sync/player-sync.component';
 import { HealthBarComponent } from './health-bar/health-bar.component';
 import { OverlayGroupComponent } from './overlay-group/overlay-group.component';
+import { AvatarFrameComponent } from './avatar-frame/avatar-frame.component';
 import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
@@ -38,6 +39,7 @@ import { PipesModule } from '../pipes/pipes.module';
     PlayerSyncComponent,
     HealthBarComponent,
     OverlayGroupComponent,
+    AvatarFrameComponent
   ],
   exports:[
     MonsterComponent,
@@ -52,7 +54,8 @@ import { PipesModule } from '../pipes/pipes.module';
     CombatPopoverComponent,
     PlayerSyncComponent,
     HealthBarComponent,
-    OverlayGroupComponent
+    OverlayGroupComponent,
+    AvatarFrameComponent
   ]
 })
 export class ComponentsModule {}

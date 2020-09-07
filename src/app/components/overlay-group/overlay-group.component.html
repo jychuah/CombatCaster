@@ -1,8 +1,10 @@
 <div [class]="initiative() ? 'highlight overlay-group': 'overlay-group'">
-  <ion-avatar>
-    <img [src]="data.imageContent[thumbnailKey]" [class]="initiative() ? 'initiative' : 'normal'">
-  </ion-avatar>
-  <div class="group-content">
+  <avatar-frame 
+    [uid]="group.uid" 
+    [large]="initiative()" 
+    [armor]="armor()"
+    [class]="initiative() ? 'highlight': ''"></avatar-frame>
+  <div [class]="initiative() ? 'highlight group-content' : 'group-content'">
     <standee
       class="standees"
       *ngFor="let combatant of group.combatants | keyvalue"

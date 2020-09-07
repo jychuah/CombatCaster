@@ -1,35 +1,58 @@
 .overlay-group {
   display: flex;
-  margin-top: 1em;
+  margin-top: 2em;
   align-items: center;
-}
-
-.highlight {
-  transform: scale(1.2, 1.2);
-  z-index: 1000;
+  position: relative;
+  margin-right: 1em;
 }
 
 ion-label {
   margin-left: 1em;
 }
 
-.standees {
-  display: block;
-}
-
 .group-content {
-  background-color: #000000;
-  padding-left: 1em;
+  padding-left: 20px;
+  background-color: white;
+  font-size: 10px;
+  color: black;
   padding-right: 1em;
   margin-left: 1em;
+  padding-bottom: 4px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  border: 0.25em solid white;
+  border: 0.25em solid black;
   border-radius: 1em;
   div {
     margin-right: 1em;
   }
+  standee {
+    margin-top: 4px;
+  }
+}
+
+.group-content.highlight {
+  padding-left: 32px;
+  font-size: 16px;
+  border: 0.25em solid #9F8F70;
+  padding-bottom: 6px;
+  standee {
+    margin-top: 8px;
+  }
+}
+
+
+avatar-frame {
+  display: inline-block;
+  position: absolute;
+  left: -28px;
+  top: -16px;
+  z-index: 1000;
+}
+
+avatar-frame.highlight {
+  left: -40px;
+  top: -12px;
 }
 
 ion-avatar {

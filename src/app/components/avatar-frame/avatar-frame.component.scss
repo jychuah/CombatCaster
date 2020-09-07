@@ -1,0 +1,79 @@
+.avatar-frame {
+  position: relative;
+  width: 48px;
+  height: 68px;
+  .picture-layer img {
+    position: absolute;
+    left: 2px;
+    top: 10px;
+    object-fit: cover;
+    border-radius: 50%;
+    width: 46px;
+    height: 46px;
+  }
+  .frame-layer {
+    background: url('/assets/Sm-Frame.svg');
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 48px;
+    height: 68px;
+  }
+  .shield-layer {
+    background: url('/assets/LG-Shield.svg');
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    bottom: 2px;
+    left: 12px;
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+    color: black;
+    line-height: 22px;
+    text-align: center;
+  }
+}
+
+.avatar-frame.large {
+  position: relative;
+  width: 82px;
+  height: 94px;
+  .picture-layer img {
+    position: absolute;
+    left: 1px;
+    top: 4px;
+    object-fit: cover;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+  }
+  .frame-layer {
+    background: url('/assets/LG-Frame.svg');
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 81px;
+    height: 94px;
+  }
+  .shield-layer {
+    background: url('/assets/LG-Shield.svg');
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    bottom: 0px;
+    left: 22px;
+    width: 38px;
+    height: 38px;
+    color: black;
+    font-size: 16px;
+    line-height: 32px;
+    text-align: center;
+  }
+}

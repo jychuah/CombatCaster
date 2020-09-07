@@ -16,10 +16,21 @@ export class OverlayGroupComponent implements OnInit {
 
   ngOnInit() {
     this.thumbnailKey = `${this.group.uid}.thumbnail`;
+    console.log(this.group);
   }
 
   initiative() {
     return this.group.initiative == this.data.combat.initiative
+  }
+
+  armor() {
+    if (this.group.type === 'monster') {
+      return this.data.monsters[this.group.uid].ac;
+    }
+    if (this.group.type === 'party') {
+      console.log("PARTY MEMBER", this.data.party[this.group.uid]);
+      return this.data.party[this.group.uid].ac;
+    }
   }
 
   showAttacks() {

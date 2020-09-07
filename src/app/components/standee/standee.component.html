@@ -1,8 +1,6 @@
 <div class="standee">
-  <h3 class="name">{{ combatant.name }}</h3>
+  <span class="name">{{ combatant.name }}</span>
   <div class="stat-line">
-    <ion-icon name="shield-outline"></ion-icon>
-    <div class="ac-stat">{{ combatant.ac }}</div>
     <health-bar *ngIf="bars" [maxHP]="combatant.maxHP" [currentHP]="combatant.currentHP"></health-bar>
   </div>
   <p *ngIf="!bars">
