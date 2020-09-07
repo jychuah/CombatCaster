@@ -28,7 +28,6 @@ export class OverlayGroupComponent implements OnInit {
       return this.data.monsters[this.group.uid].ac;
     }
     if (this.group.type === 'party') {
-      console.log("PARTY MEMBER", this.data.party[this.group.uid]);
       return this.data.party[this.group.uid].ac;
     }
   }
