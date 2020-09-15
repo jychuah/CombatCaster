@@ -13,4 +13,7 @@ export class OverlayPage implements OnInit {
   ngOnInit() {
   }
 
+  initiative(group) {
+    return group.initiative == this.data.combat.initiative
+  }
 }

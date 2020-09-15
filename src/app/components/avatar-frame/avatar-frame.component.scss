@@ -1,7 +1,7 @@
 .avatar-frame {
   position: relative;
   width: 48px;
-  height: 68px;
+  height: 70px;
   .picture-layer img {
     position: absolute;
     left: 2px;
@@ -22,16 +22,16 @@
     height: 68px;
   }
   .shield-layer {
-    background: url('/assets/LG-Shield.svg');
+    background: url('/assets/Sm-AC.svg');
     background-position: 0 0;
     background-repeat: no-repeat;
     background-size: 100% 100%;
     position: absolute;
-    bottom: 2px;
-    left: 12px;
-    width: 24px;
-    height: 24px;
-    font-size: 12px;
+    bottom: 0px;
+    left: 20%;
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
     color: black;
     line-height: 22px;
     text-align: center;
@@ -41,15 +41,15 @@
 .avatar-frame.large {
   position: relative;
   width: 82px;
-  height: 94px;
+  height: 112px;
   .picture-layer img {
     position: absolute;
-    left: 1px;
-    top: 4px;
+    left: 2px;
+    top: 16px;
     object-fit: cover;
     border-radius: 50%;
-    width: 80px;
-    height: 80px;
+    width: 74px;
+    height: 74px;
   }
   .frame-layer {
     background: url('/assets/LG-Frame.svg');
@@ -62,17 +62,17 @@
     height: 94px;
   }
   .shield-layer {
-    background: url('/assets/LG-Shield.svg');
+    background: url('/assets/LG-AC.svg');
     background-position: 0 0;
     background-repeat: no-repeat;
     background-size: 100% 100%;
     position: absolute;
     bottom: 0px;
-    left: 22px;
-    width: 38px;
-    height: 38px;
+    left: 18px;
+    width: 42px;
+    height: 42px;
     color: black;
-    font-size: 16px;
+    font-size: 20px;
     line-height: 32px;
     text-align: center;
   }

@@ -1,9 +1,13 @@
 .overlay-group {
   display: flex;
-  margin-top: 2em;
+  margin-top: 0.1em;
   align-items: center;
   position: relative;
   margin-right: 1em;
+}
+
+.overlay-group.highlight {
+  margin-top: 0.25em;
 }
 
 ion-label {
@@ -13,7 +17,7 @@ ion-label {
 .group-content {
   padding-left: 20px;
   background-color: white;
-  font-size: 10px;
+  font-size: 12px;
   color: black;
   padding-right: 1em;
   margin-left: 1em;
@@ -44,15 +48,15 @@ ion-label {
 
 avatar-frame {
   display: inline-block;
-  position: absolute;
-  left: -28px;
-  top: -16px;
+  position: relative;
+  left: 12%;
+  top: -25%;
   z-index: 1000;
 }
 
 avatar-frame.highlight {
-  left: -40px;
-  top: -12px;
+  left: 14%;
+  top: -25%;
 }
 
 ion-avatar {

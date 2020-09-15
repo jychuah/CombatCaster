@@ -2,6 +2,15 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  padding-top: 2em;
+}
+
+overlay-group.highlight {
+  margin-top: -0.5em;
+}
+
+overlay-group.highlight ~ overlay-group.highlight {
+  margin-top: 0em;
 }
 
 ion-content {

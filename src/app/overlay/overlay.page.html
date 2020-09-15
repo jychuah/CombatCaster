@@ -3,7 +3,8 @@
     <overlay-group
       *ngFor="let group of data.combat.groups | initiative" 
       [group]="group.value"
-      [uid]="group.key">
+      [uid]="group.key"
+      [class]="initiative(group.value) ? 'highlight' : ''">
     </overlay-group>
   </div>
   <img class="portrait" *ngIf="data.portraitKey" [src]="data.imageContent[data.portraitKey]" />
