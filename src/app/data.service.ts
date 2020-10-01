@@ -592,6 +592,7 @@ export class DataService {
         console.log("upload error", error);
       },
       () => {
+        this.uploadTask = null;
         const downloadEvents = fileRef.getDownloadURL();
         downloadEvents.toPromise().then(
           (url: string) => {
