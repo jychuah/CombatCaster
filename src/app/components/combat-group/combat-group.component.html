@@ -10,18 +10,20 @@
           *ngFor="let combatant of group.combatants | keyvalue">
           <standee
             [bars]="!data.isDm()"
-            [combatant]="combatant.value"
-            (click)="showCombatPopover(combatant.key)"></standee>
+            [combatant]="combatant.value"></standee>
+          <ion-button (click)="showCombatPopover(combatant.key)" color="danger">Damage</ion-button>
           <ion-button *ngIf="data.isDm()" (click)="remove(combatant.key)">Remove</ion-button>
         </div>
       </div>
-      <div class="attacks" *ngIf="showAttacks()">
-        <h3>Attacks: {{ data.monsters[group.uid].numAttacks }}</h3>
-        <div *ngFor="let attack of data.monsters[group.uid].attacks">
-          {{ attack.name }}: +{{ attack.bonus }}, {{ attack.medianDamage }} dmg, {{ attack.dice }}
-        </div>
-        <div *ngIf="data.monsters[group.uid].url">
-          <a [href]="data.monsters[group.uid].url" target="_blank">Link</a>
+      <div class="attacks">
+        <div *ngIf="showAttacks()">
+          <div>Attacks: {{ data.monsters[group.uid].numAttacks }}</div>
+          <div *ngFor="let attack of data.monsters[group.uid].attacks">
+            {{ attack.name }}: +{{ attack.bonus }}, {{ attack.medianDamage }} dmg, {{ attack.dice }}
+          </div>
+          <div *ngIf="data.monsters[group.uid].url">
+            <a [href]="data.monsters[group.uid].url" target="_blank">Link</a>
+          </div>
         </div>
       </div>
     </div>

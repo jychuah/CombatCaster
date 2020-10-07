@@ -1,5 +1,6 @@
 <div class="standee">
-  <span class="name">{{ combatant.name }}</span>
+  <div class="name">{{ combatant.name }}</div>
+  <div>AC {{ combatant.ac }}</div>
   <div class="stat-line">
     <health-bar *ngIf="bars" [maxHP]="combatant.maxHP" [currentHP]="combatant.currentHP"></health-bar>
   </div>

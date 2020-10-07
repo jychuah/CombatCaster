@@ -4,7 +4,6 @@
   align-items: center;
 }
 
-.player-deployers {
-  display: flex;
-  align-items: flex-start;
+.player-deployers player-deployer {
+  display: inline-block;
 }

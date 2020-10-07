@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Platform } from '@ionic/angular';
 import { DataService } from '../data.service';
 @Component({
   selector: 'app-combat',
@@ -8,7 +9,7 @@ import { DataService } from '../data.service';
 export class CombatPage implements OnInit {
   collapseStaging: boolean = false;
 
-  constructor(public data: DataService) {
+  constructor(public data: DataService, public platform: Platform) {
   }
 
   ngOnInit() {
