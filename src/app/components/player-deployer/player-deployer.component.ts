@@ -24,4 +24,8 @@ export class PlayerDeployerComponent implements OnInit {
   findInitiative() {
     return this.data.findInitiative(this.uid);
   }
+
+  setPortrait() {
+    this.data.setPortrait(this.uid);
+  }
 }

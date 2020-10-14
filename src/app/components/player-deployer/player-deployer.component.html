@@ -7,4 +7,5 @@
   </div>
   <deploy *ngIf="!isPlayerDeployed()" (onDeploy)="deploy($event)"></deploy>
   <h5 *ngIf="isPlayerDeployed()">Deployed at i{{ findInitiative() }}</h5>
+  <ion-button *ngIf="data.isDm()" (click)="setPortrait()">Portrait</ion-button>
 </div>
