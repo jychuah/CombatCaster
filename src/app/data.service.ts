@@ -533,6 +533,15 @@ export class DataService {
     this.saveCombat();
   }
 
+  getCurrentGroup(initiative: number) : CombatGroup {
+    for (const [uid, group] of Object.entries(this.combat.groups)) {
+      if (group.initiative === initiative) {
+        return group;
+      }
+    }
+    return null;
+  }
+
   previousInitiative() {
     if (Object.keys(this.combat.groups).length === 0) {
       return;

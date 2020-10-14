@@ -1,9 +1,13 @@
 <ion-card>
   <ion-card-header>
-    <img [src]="data.imageContent[thumbnailKey]" />
+    <img [src]="data.imageContent[thumbnailKey]" class="thumbnail"/>
+    <img [src]="data.imageContent[portraitKey]" class="portrait"/>
     <ion-card-title>{{ data.party[uid].name }}</ion-card-title>
     <i>{{ data.users[uid].displayName }}</i><br/>
     <ion-button (click)="sync()">Sync</ion-button>
+    <ion-input type="file" (change)="uploadPortrait($event)" [disabled]="data.uploadTask"></ion-input>
+    <ion-progress-bar *ngIf="data.uploadTask" [value]="data.uploadPercentage"></ion-progress-bar>
+
   </ion-card-header>
   <ion-card-content>
     AC: {{ data.party[uid].ac }}

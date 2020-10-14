@@ -2,8 +2,8 @@
   <ion-toolbar>
     <ion-title>Combat: Initiative {{ data.combat.initiative }}</ion-title>
     <ion-buttons *ngIf="data.isDm()" slot="end">
-      <ion-button (click)="data.previousInitiative()">Previous</ion-button>
-      <ion-button (click)="data.nextInitiative()">Next</ion-button>
+      <ion-button (click)="previous()">Previous</ion-button>
+      <ion-button (click)="next()">Next</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
