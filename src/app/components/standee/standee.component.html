@@ -1,10 +1,10 @@
 <div class="standee">
   <div class="name">{{ combatant.name }}</div>
-  <div>AC {{ combatant.ac }}</div>
+  <div *ngIf="!overlay">AC {{ combatant.ac }}</div>
   <div class="stat-line">
-    <health-bar *ngIf="bars" [maxHP]="combatant.maxHP" [currentHP]="combatant.currentHP"></health-bar>
+    <health-bar *ngIf="overlay || bars" [maxHP]="combatant.maxHP" [currentHP]="combatant.currentHP"></health-bar>
   </div>
-  <p *ngIf="!bars">
+  <p *ngIf="!overlay && !bars">
     <span *ngIf="combatant.currentHP != null">{{ combatant.currentHP }} / </span>
     {{ combatant.maxHP }} HP
   </p>

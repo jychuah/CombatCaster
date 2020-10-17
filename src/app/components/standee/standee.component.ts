@@ -8,6 +8,7 @@ import { Combatant } from '../../types';
 export class StandeeComponent implements OnInit {
   @Input('combatant') combatant: Combatant;
   @Input('bars') bars: boolean = true;
+  @Input('overlay') overlay: boolean = false;
   constructor() { }
 
   ngOnInit() {}
