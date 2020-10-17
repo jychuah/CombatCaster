@@ -411,6 +411,10 @@ export class DataService {
     )
   }
 
+  pushPlayer(uid: string) {
+    this.replacePlayer(uid, this.party[uid]);
+  }
+
   insertCombatGroup(group: CombatGroup) {
     this.combat.groups = {
       ...this.combat.groups,
@@ -488,6 +492,10 @@ export class DataService {
         currentHP
       }
     );
+    if (this.combat.groups[groupUID].type === "party") {
+      this.party[combatantUID].currentHP = currentHP;
+      this.pushPlayer(combatantUID);
+    }
   }
 
   removeCombatant(groupUID: string, combatantUID: string) {

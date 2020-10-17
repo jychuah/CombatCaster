@@ -24,4 +24,8 @@ export class PlayerComponent implements OnInit {
   uploadPortrait($event) {
     this.data.upload($event.target.files[0], this.uid, "portrait");
   }
+
+  statChange($event) {
+    this.data.pushPlayer(this.uid);
+  }
 }
