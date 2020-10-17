@@ -1,9 +1,6 @@
 <div class="group-deployer">
   <deploy (onDeploy)="deploy($event)" [allowRandom]="true"></deploy>
   <div class="spawn-group">
-    <div>
-      Group {{ index + 1 }}
-    </div>
     <group [spawngroup]="spawngroup"></group>
   </div>
 </div>

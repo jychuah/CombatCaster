@@ -50,7 +50,7 @@ export class EditEncounterPage implements OnInit {
       ...this.encounter.groups[groupIndex].spawns,
       {
         uid: this.firstMonsterUID(),
-        count: 0
+        count: 1
       }
     ]
   }
@@ -59,7 +59,12 @@ export class EditEncounterPage implements OnInit {
     this.encounter.groups = [
       ...this.encounter.groups,
       {
-        spawns: []
+        spawns: [
+          {
+            uid: this.firstMonsterUID(),
+            count: 1
+          }
+        ]
       }
     ]
   }

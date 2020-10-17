@@ -1,10 +1,6 @@
-<div class="group">
-  <ion-list>
-    <ion-item *ngFor="let group of spawnGroup.spawns | keyvalue">
-      {{ group.value.count }}x {{ data.monsters[group.value.uid].name }}
-      <ion-button 
-        *ngIf="data.imageContent[group.value.uid + '.portrait']"
-        (click)="setPortrait(group.value.uid)">Portrait</ion-button>
-    </ion-item>
-  </ion-list>
-</div>
+<ion-item *ngFor="let group of spawnGroup.spawns | keyvalue">
+  {{ data.monsters[group.value.uid].name }}
+  <ion-button 
+    *ngIf="data.imageContent[group.value.uid + '.portrait']"
+    (click)="setPortrait(group.value.uid)">Portrait</ion-button>
+</ion-item>

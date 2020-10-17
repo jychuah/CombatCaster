@@ -1,13 +1,6 @@
-.group {
-  margin-bottom: 0.5em;
-  ion-list {
-    padding-bottom: 0.5em;
-    --background: var(--ion-color-medium-shade); 
-  }
-  ion-item {
-    --background: var(--ion-color-medium-shade);
-  }
-  ion-button {
-    margin-left: 1em;
-  }
+ion-item {
+  --background: var(--ion-color-medium-shade);
+}
+ion-button {
+  margin-left: 1em;
 }
