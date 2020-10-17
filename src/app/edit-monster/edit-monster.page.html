@@ -19,6 +19,10 @@
   <ion-input type="url" [(ngModel)]="monster.url"></ion-input>
   <ion-label>Attacks per round</ion-label>
   <ion-input type="number" [(ngModel)]="monster.numAttacks"></ion-input>
+  <h3>Notes</h3>
+  <div>
+    <ion-input type="text" [(ngModel)]="monster.notes"></ion-input>
+  </div>
   <h3>Attacks</h3>
   <div class="attacks" *ngFor="let attack of monster.attacks; index as index">
     <div>

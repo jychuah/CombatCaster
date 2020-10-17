@@ -21,6 +21,9 @@
           <div *ngFor="let attack of data.monsters[group.uid].attacks">
             {{ attack.name }}: +{{ attack.bonus }}, {{ attack.medianDamage }} dmg, {{ attack.dice }}
           </div>
+          <div *ngIf="data.monsters[group.uid].notes">
+            {{ data.monsters[group.uid].notes }}
+          </div>
           <div *ngIf="data.monsters[group.uid].url">
             <a [href]="data.monsters[group.uid].url" target="_blank">Link</a>
           </div>

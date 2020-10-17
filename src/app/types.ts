@@ -19,7 +19,8 @@ export interface Player extends Combatant {
 export interface Monster extends Combatant {
   numAttacks: number,
   attacks: Attack[],
-  url?: string
+  url?: string,
+  notes?: string
 }
 
 export interface CombatGroup {

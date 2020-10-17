@@ -34,5 +34,11 @@
         +{{ attack.bonus }}, {{ attack.medianDamage }} dmg, ({{ attack.dice }})
       </ion-item>  
     </div>
+    <div>
+      <div *ngIf="data.monsters[uid].notes">Notes</div>
+      <div>
+        {{ data.monsters[uid].notes }}
+      </div>
+    </div>
   </ion-card-content>
 </ion-card>

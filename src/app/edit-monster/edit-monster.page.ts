@@ -30,6 +30,9 @@ export class EditMonsterPage implements OnInit {
   }
 
   ngOnInit() {
+    if (!this.monster.notes) {
+      this.monster.notes = "";
+    }
   }
 
   newAttack() {
